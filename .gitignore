@@ -5,6 +5,7 @@
 build
 .jython_cache/
 .settings/
-
+bin/
+*/bin
 .classpath
 .project
