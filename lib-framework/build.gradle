@@ -1,0 +1,7 @@
+
+dependencies {
+	compile project(':lib-common')
+	// oshi-core
+  implementation group: 'com.github.oshi', name: 'oshi-core', version: "${oshiCoreVersion}"
+  
+}

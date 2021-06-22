@@ -1,0 +1,3 @@
+dependencies {
+  compile project(':lib-framework') // 核心模块
+}

@@ -1,0 +1,37 @@
+2021-05-30 19:05:02.685 DEBUG 26711 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:05:37.727 DEBUG 26830 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:05:39.357 DEBUG 26830 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:15:29.316 DEBUG 27463 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:15:31.027 DEBUG 27463 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:46:16.979 DEBUG 30556 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:46:19.126 DEBUG 30556 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:47:34.865 DEBUG 30873 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:47:36.805 DEBUG 30873 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:53:09.797 DEBUG 31447 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:53:11.495 DEBUG 31447 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:53:53.961 DEBUG 31566 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:53:55.716 DEBUG 31566 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 19:58:31.613 DEBUG 31909 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 19:58:33.727 DEBUG 31909 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:02:16.100 DEBUG 32350 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:02:17.884 DEBUG 32350 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:02:52.690 DEBUG 32436 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:02:54.652 DEBUG 32436 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:04:01.521 DEBUG 32579 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:04:03.525 DEBUG 32579 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:07:27.735 DEBUG 32894 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:07:29.659 DEBUG 32894 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:08:59.456 DEBUG 33020 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:09:01.302 DEBUG 33020 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:09:53.093 DEBUG 33020 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:09:53.616 DEBUG 33020 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:10:01.207 DEBUG 33020 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:10:01.603 DEBUG 33020 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:11:07.312 DEBUG 33245 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:11:09.121 DEBUG 33245 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:12:52.204 DEBUG 33378 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:12:53.988 DEBUG 33378 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:14:37.046 DEBUG 33551 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:14:38.999 DEBUG 33551 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.
+2021-05-30 20:16:18.340 DEBUG 33710 --- [restartedMain] com.github.hmld.Next_G_Application : Running with Spring Boot v2.4.6, Spring v5.3.7
+2021-05-30 20:16:20.396 DEBUG 33710 --- [restartedMain] org.mybatis.spring.SqlSessionFactoryBean : Property 'mapperLocations' was not specified.

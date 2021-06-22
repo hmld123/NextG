@@ -1,0 +1,72 @@
+buildscript {
+  // 全局依赖管理
+  ext {
+    // springboot版本
+    springbootVersion = '2.4.6'
+    // springboot gradle 插件版本
+    springDependencyManagementVersion = '1.0.11.RELEASE'
+    // postgresql 数据库驱动版本
+    postgresqlVersion = '42.2.20'
+    // mybatis 版本
+    mybatisVersion = '3.5.7'
+    // mybatis-spring-boot-starter 版本
+    mybatisSpringBootStarterVersion = '2.2.0'
+    // jackson 版本
+    jacksonVersion = '2.12.3'
+    // commons-lang3 版本
+    commonsLang3Version = '3.12.0'
+    // commons-io 版本
+    commonsIoVersion = '2.9.0'
+    // javax-servlet-api 版本
+    javaxServletApiVersion = '4.0.1'
+    // oshi-core 版本
+    oshiCoreVersion = '5.7.3'
+  }
+}
+
+// 主项目的插件设置
+plugins {
+	id 'org.springframework.boot' version "${springbootVersion}"
+  id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+allprojects {
+  // 组设置
+	group 'com.github.hmld'
+	// 版本信息
+	version '0.0.1-SNAPSHOT'
+	// 公共插件引用
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	// 编译使用的jdk版本
+	sourceCompatibility=1.11
+	// maven 仓库设置
+	repositories {
+		mavenLocal()
+		maven {// 使用阿里云的maven仓库
+			url 'https://maven.aliyun.com/repository/public/'
+		}
+		maven {// 使用阿里云的maven仓库
+			url 'https://maven.aliyun.com/repository/spring/'
+		}
+		mavenCentral()
+	}
+  test {
+    useJUnitPlatform()
+  }
+}
+
+// 子项目设置
+subprojects {
+  dependencies {
+    
+  }
+}
+
+// 引用设置
+dependencies {
+	compile project(':lib-framework') // 核心模块
+	compile project(':lib-common') // 通用工具模块
+	compile project(':lib-system') // 系统模块
+	compile project(':lib-generator') //代码模块
+}
