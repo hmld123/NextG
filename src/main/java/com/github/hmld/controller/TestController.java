@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.hmld.common.logger.Log;
+import com.github.hmld.common.utils.MsageUtils;
 
 @Controller
 @RequestMapping("/py")
@@ -13,7 +14,7 @@ public class TestController {
   @GetMapping("/do")
   public void execPython() {
     try {
-      
+      System.out.println(MsageUtils.message("sys.version", null));
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
