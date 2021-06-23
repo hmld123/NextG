@@ -14,7 +14,7 @@ public class TestController {
   @GetMapping("/do")
   public void execPython() {
     try {
-      System.out.println(MsageUtils.message("sys.version", null));
+      System.out.println(MsageUtils.message("sys.version"));
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }

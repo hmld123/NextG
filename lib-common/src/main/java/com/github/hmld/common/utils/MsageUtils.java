@@ -20,4 +20,14 @@ public class MsageUtils {
     MessageSource messageSource = SpringUtils.getBean(MessageSource.class);
     return messageSource.getMessage(key, args, LocaleContextHolder.getLocale());
   }
+  
+  /**
+   * 据消息键和参数 获取消息 委托给spring messageSource
+   * @param key 消息键
+   * @return 获取国际化翻译值
+   */
+  public static String message(String key) {
+    MessageSource messageSource = SpringUtils.getBean(MessageSource.class);
+    return messageSource.getMessage(key, null,  LocaleContextHolder.getLocale());
+  }
 }
