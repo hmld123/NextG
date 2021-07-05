@@ -1,0 +1,12 @@
+spring:
+  #数据库配置
+  datasource:
+    url: jdbc:postgresql://172.16.161.129:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: hmld
+    
+# mybatis 配置
+mybatis: 
+  typeAliasesPackage: com.github.hmld.*
+  mapperLocations: classpath:mybatis/mapper/*.xml
