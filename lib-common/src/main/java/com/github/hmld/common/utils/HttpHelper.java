@@ -11,8 +11,6 @@ import javax.servlet.ServletRequest;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 
-import com.github.hmld.common.logger.LoggerUtil;
-
 /**
  * 通用http工具封装
  * 

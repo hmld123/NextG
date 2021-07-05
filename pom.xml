@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+  https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.hmld</groupId>
+	<artifactId>NextG</artifactId>
+	<version>0.0.1</version>
+
+	<packaging>pom</packaging>
+	<!-- 版本管理 -->
+	<properties>
+		<!-- 项目版本 -->
+		<project.version>0.0.1</project.version>
+		<!-- java版本 -->
+		<java.version>11.0.2</java.version>
+		<!-- 编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- spring版本 -->
+		<springbootVersion>2.4.6</springbootVersion>
+		<!-- mybatis 版本 -->
+		<mybatisVersion>3.5.7</mybatisVersion>
+		<!-- MyBatis Generator Core -->
+		<mybatisGeneratorVersion>1.4.0</mybatisGeneratorVersion>
+		<!-- mybatis-spring-boot-starter 版本 -->
+		<mybatisSpringBootStarterVersion>2.2.0</mybatisSpringBootStarterVersion>
+		<!-- commons-io 版本 -->
+		<commonsIoVersion>2.9.0</commonsIoVersion>
+		<!-- oshi-core 版本 -->
+		<oshiCoreVersion>5.7.3</oshiCoreVersion>
+	</properties>
+
+	<!-- 模块设置 -->
+	<modules>
+		<module>lib-common</module>
+		<module>lib-framework</module>
+		<module>lib-generator</module>
+		<module>lib-system</module>
+		<module>server-application</module>
+	</modules>
+
+	<!-- 构建配置 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- 依赖设置 -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- SpringBoot的依赖配置 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springbootVersion}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- 通用工具 -->
+			<dependency>
+				<groupId>com.github.hmld.common</groupId>
+				<artifactId>lib-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- 核心模块 -->
+			<dependency>
+				<groupId>com.github.hmld.framework</groupId>
+				<artifactId>lib-framework</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- 代码生成模块 -->
+			<dependency>
+				<groupId>com.github.hmld.generator</groupId>
+				<artifactId>lib-generator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- system模块 -->
+			<dependency>
+				<groupId>com.github.hmld.system</groupId>
+				<artifactId>lib-system</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- maven仓库设置 -->
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

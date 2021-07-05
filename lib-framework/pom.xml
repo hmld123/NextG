@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- 父项目 -->
+  <parent>
+    <groupId>com.github.hmld</groupId>
+    <artifactId>NextG</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
+  <groupId>com.github.hmld.framework</groupId>
+  <artifactId>lib-framework</artifactId>
+
+  <!-- 依赖管理 -->
+  <dependencies>
+    <!-- 核心模块 -->
+    <dependency>
+      <groupId>com.github.hmld.common</groupId>
+      <artifactId>lib-common</artifactId>
+    </dependency>
+    <!-- oshi-core -->
+    <dependency>
+      <groupId>com.github.oshi</groupId>
+      <artifactId>oshi-core</artifactId>
+      <version>${oshiCoreVersion}</version>
+    </dependency>
+  </dependencies>
+</project>
