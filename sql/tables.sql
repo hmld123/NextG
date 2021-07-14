@@ -31,37 +31,37 @@ create table sys_role (
 );
 
 comment on table sys_role is
-'È¨ÏŞ±í';
+'æƒé™è¡¨';
 
 comment on column sys_role.role_pk is
-'½ÇÉ«Ö÷¼ü';
+'è§’è‰²ä¸»é”®';
 
 comment on column sys_role.role_name is
-'½ÇÉ«Ãû³Æ';
+'è§’è‰²åç§°';
 
 comment on column sys_role.role_key is
-'½ÇÉ«¼üÖµ';
+'è§’è‰²é”®å€¼';
 
 comment on column sys_role.role_sort is
-'ÏÔÊ¾Ë³Ğò';
+'æ˜¾ç¤ºé¡ºåº';
 
 comment on column sys_role.status is
-'×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©';
+'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰';
 
 comment on column sys_role.del_flag is
-'É¾³ı±êÖ¾£¨0´ú±í´æÔÚ 2´ú±íÉ¾³ı£©';
+'åˆ é™¤æ ‡å¿—ï¼ˆ0ä»£è¡¨å­˜åœ¨ 2ä»£è¡¨åˆ é™¤ï¼‰';
 
 comment on column sys_role.update_time is
-'¸üĞÂÊ±¼ä';
+'æ›´æ–°æ—¶é—´';
 
 comment on column sys_role.update_by is
-'¸üĞÂÈË';
+'æ›´æ–°äºº';
 
 comment on column sys_role.create_time is
-'´´½¨Ê±¼ä';
+'åˆ›å»ºæ—¶é—´';
 
 comment on column sys_role.create_by is
-'´´½¨ÈË';
+'åˆ›å»ºäºº';
 
 /*==============================================================*/
 /* Table: sys_user                                              */
@@ -81,34 +81,34 @@ create table sys_user (
 );
 
 comment on table sys_user is
-'ÓÃ»§±í';
+'ç”¨æˆ·è¡¨';
 
 comment on column sys_user.user_pk is
-'ÓÃ»§Ö÷¼ü';
+'ç”¨æˆ·ä¸»é”®';
 
 comment on column sys_user.user_name is
-'ÓÃ»§Ãû';
+'ç”¨æˆ·å';
 
 comment on column sys_user.nick_name is
-'êÇ³Æ';
+'æ˜µç§°';
 
 comment on column sys_user.status is
-'×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©';
+'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰';
 
 comment on column sys_user.del_flag is
-'É¾³ı±êÖ¾£¨0´ú±í´æÔÚ 2´ú±íÉ¾³ı£©';
+'åˆ é™¤æ ‡å¿—ï¼ˆ0ä»£è¡¨å­˜åœ¨ 2ä»£è¡¨åˆ é™¤ï¼‰';
 
 comment on column sys_user.update_time is
-'¸üĞÂÊ±¼ä';
+'æ›´æ–°æ—¶é—´';
 
 comment on column sys_user.update_by is
-'¸üĞÂÈË';
+'æ›´æ–°äºº';
 
 comment on column sys_user.create_time is
-'´´½¨Ê±¼ä';
+'åˆ›å»ºæ—¶é—´';
 
 comment on column sys_user.create_by is
-'´´½¨ÈË';
+'åˆ›å»ºäºº';
 
 /*==============================================================*/
 /* Table: sys_user_password_history                             */
@@ -129,40 +129,40 @@ create table sys_user_password_history (
 );
 
 comment on table sys_user_password_history is
-'ÓÃ»§ÃÜÂë±ä¶¯ÀúÊ·±í';
+'ç”¨æˆ·å¯†ç å˜åŠ¨å†å²è¡¨';
 
 comment on column sys_user_password_history.user_history_pk is
-'ÓÃ»§±ä¶¯ÀúÊ·Ö÷¼ü';
+'ç”¨æˆ·å˜åŠ¨å†å²ä¸»é”®';
 
 comment on column sys_user_password_history.user_pk is
-'ÓÃ»§Ö÷¼ü';
+'ç”¨æˆ·ä¸»é”®';
 
 comment on column sys_user_password_history.user_name is
-'ÓÃ»§Ãû';
+'ç”¨æˆ·å';
 
 comment on column sys_user_password_history.nick_name is
-'êÇ³Æ';
+'æ˜µç§°';
 
 comment on column sys_user_password_history.user_password is
-'ÃÜÂë';
+'å¯†ç ';
 
 comment on column sys_user_password_history.salt is
-'ÑÎ';
+'ç›';
 
 comment on column sys_user_password_history.status is
-'×´Ì¬(0´ú±íÕı³££¬1´ú±íÍ£ÓÃ)';
+'çŠ¶æ€(0ä»£è¡¨æ­£å¸¸ï¼Œ1ä»£è¡¨åœç”¨)';
 
 comment on column sys_user_password_history.update_time is
-'ÃÜÂë¸üĞÂÊ±¼ä';
+'å¯†ç æ›´æ–°æ—¶é—´';
 
 comment on column sys_user_password_history.update_by is
-'ÃÜÂë¸üĞÂÈË';
+'å¯†ç æ›´æ–°äºº';
 
 comment on column sys_user_password_history.create_time is
-'´´½¨Ê±¼ä';
+'åˆ›å»ºæ—¶é—´';
 
 comment on column sys_user_password_history.create_by is
-'´´½¨ÈË';
+'åˆ›å»ºäºº';
 
 /*==============================================================*/
 /* Table: sys_user_role                                         */
@@ -181,34 +181,34 @@ create table sys_user_role (
 );
 
 comment on table sys_user_role is
-'ÓÃ»§È¨ÏŞ±í';
+'ç”¨æˆ·æƒé™è¡¨';
 
 comment on column sys_user_role.sur_pk is
-'ÓÃ»§È¨ÏŞÖ÷¼ü';
+'ç”¨æˆ·æƒé™ä¸»é”®';
 
 comment on column sys_user_role.user_pk is
-'ÓÃ»§Ö÷¼ü';
+'ç”¨æˆ·ä¸»é”®';
 
 comment on column sys_user_role.role_pk is
-'½ÇÉ«Ö÷¼ü';
+'è§’è‰²ä¸»é”®';
 
 comment on column sys_user_role.status is
-'×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©';
+'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰';
 
 comment on column sys_user_role.del_flag is
-'É¾³ı±êÖ¾£¨0´ú±í´æÔÚ 2´ú±íÉ¾³ı£©';
+'åˆ é™¤æ ‡å¿—ï¼ˆ0ä»£è¡¨å­˜åœ¨ 2ä»£è¡¨åˆ é™¤ï¼‰';
 
 comment on column sys_user_role.update_time is
-'¸üĞÂÊ±¼ä';
+'æ›´æ–°æ—¶é—´';
 
 comment on column sys_user_role.update_by is
-'¸üĞÂÈË';
+'æ›´æ–°äºº';
 
 comment on column sys_user_role.create_time is
-'´´½¨Ê±¼ä';
+'åˆ›å»ºæ—¶é—´';
 
 comment on column sys_user_role.create_by is
-'´´½¨ÈË';
+'åˆ›å»ºäºº';
 
 alter table sys_user_password_history
    add constraint FK_SYS_USER_REFERENCE_SYS_USER foreign key (user_pk)
