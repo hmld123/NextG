@@ -1,6 +1,6 @@
 package com.github.hmld.common.constant;
 
-public class GenConstants {
+public class GenConstants extends BaseGenConstants{
   /** 字符串类型*/
   public static final String[] COLUMNTYPE_STR = {
       "text","varchar","bpchar"

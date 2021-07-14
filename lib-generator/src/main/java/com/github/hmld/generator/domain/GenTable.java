@@ -22,6 +22,8 @@ public class GenTable {
   private String tableComment;
   /** 表类型*/
   private String tableType;
+  /** 类名称*/
+  private String javaClass;
   /** 主键字段的所在列*/
   private Short[] pknums;
   /** 包路径*/
@@ -88,6 +90,12 @@ public class GenTable {
   public void setTableType(String tableType) {
     this.tableType = tableType;
   }
+  public String getJavaClass() {
+    return javaClass;
+  }
+  public void setJavaClass(String javaClass) {
+    this.javaClass = javaClass;
+  }
   public Short[] getPknums() {
     return pknums;
   }
@@ -142,5 +150,5 @@ public class GenTable {
   public void setChildTables(List<GenTable> childTables) {
     this.childTables = childTables;
   }
-  
+
 }
