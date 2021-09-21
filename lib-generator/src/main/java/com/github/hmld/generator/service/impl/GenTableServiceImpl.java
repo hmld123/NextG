@@ -50,6 +50,19 @@ public class GenTableServiceImpl implements IGenTableService {
   }
   
   /**
+   * 查询数据库中对应的表的信息
+   * @param genTable
+   * @return 表信息结果集
+   */
+  public GenTable queryGenTableByTableName(GenTable genTable){
+    GenTable table = genTableMapper.queryGenTableByTableName(genTable);
+    List<GenTableColumn> cols = genTableMapper.qyeryGenTableColumnList(genTable);
+    List<GenTableColumn> list = initColumnField(cols, table);
+    table.setColumnList(list);
+    return table;
+  }
+  
+  /**
    * 初始化字段
    * @param columnList
    * @param table
@@ -162,17 +175,21 @@ public class GenTableServiceImpl implements IGenTableService {
    * @param pkIndex
    */
   private static void setPk(GenTableColumn column ,Short[] pkIndex) {
-    for (int i = 0; i < pkIndex.length; i++) {
-      //判断是否主键
-      if (column.getSort().equals(Integer.parseInt(pkIndex[i].toString()))) {
-        column.setIsPk(GenConstants.ENABLE);
-        column.setIsQuery(GenConstants.DISABLE);
-        column.setIsList(GenConstants.DISABLE);
+  	if (pkIndex!=null) {
+  		for (int i = 0; i < pkIndex.length; i++) {
+        //判断是否主键
+        if (column.getSort().equals(Integer.parseInt(pkIndex[i].toString()))) {
+          column.setIsPk(GenConstants.ENABLE);
+          column.setIsQuery(GenConstants.DISABLE);
+          column.setIsList(GenConstants.DISABLE);
+        }
       }
-    }
-    if (column.getIsPk()==null) {
-      column.setIsPk(GenConstants.DISABLE);
-    }
+      if (column.getIsPk()==null) {
+        column.setIsPk(GenConstants.DISABLE);
+      }
+		}else {
+			column.setIsPk(GenConstants.DISABLE);
+		}
   }
   
   /**

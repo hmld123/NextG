@@ -18,6 +18,12 @@ public interface IGenTableService {
    */
   public List<GenTable> queryGenTableList(GenTable genTable);
   /**
+   * 查询数据库中对应的表的信息
+   * @param genTable
+   * @return 表信息结果集
+   */
+  public GenTable queryGenTableByTableName(GenTable genTable);
+  /**
    * 查询数据库中对应的表的字段信息
    * @param genTable
    * @return 字段信息结果集
