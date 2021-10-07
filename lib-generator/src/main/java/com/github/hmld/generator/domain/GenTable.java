@@ -42,6 +42,8 @@ public class GenTable {
   private List<GenTableColumn> columnList;
   /** 子表*/
   private List<GenTable> childTables;
+  /** 表字段包*/
+  private List<String> columPackages;
   public Long getPkTable() {
     return pkTable;
   }
@@ -149,6 +151,12 @@ public class GenTable {
   }
   public void setChildTables(List<GenTable> childTables) {
     this.childTables = childTables;
+  }
+  public List<String> getColumPackages() {
+    return columPackages;
+  }
+  public void setColumPackages(List<String> columPackages) {
+    this.columPackages = columPackages;
   }
 
 }

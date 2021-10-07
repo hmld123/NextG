@@ -13,6 +13,9 @@ public class Nex_G_Propertie {
 	
 	/** 版本号 */
 	private String version;
+	
+	/** 上传下载默认路径*/
+	private String upload;
 	/**
 	 * 获取版本号
 	 * @return 版本号
@@ -28,5 +31,19 @@ public class Nex_G_Propertie {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	/**
+	 * 获取上传下载默认路径
+	 * @return
+	 */
+  public String getUpload() {
+    return upload;
+  }
+  /**
+   * 设置上传下载默认路径
+   * @param upload
+   */
+  public void setUpload(String upload) {
+    this.upload = upload;
+  }
 	
 }

@@ -72,11 +72,20 @@
 			<artifactId>mybatis</artifactId>
 			<version>${mybatisVersion}</version>
 		</dependency>
-    <!-- mybatis-spring-boot-starter -->
-    <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>${mybatisSpringBootStarterVersion}</version>
-    </dependency>
+		<!-- mybatis-spring-boot-starter -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${mybatisSpringBootStarterVersion}</version>
+		</dependency>
+		<!-- freemarker -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		</dependency>
 	</dependencies>
 </project>

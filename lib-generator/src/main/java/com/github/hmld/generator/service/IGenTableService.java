@@ -29,4 +29,29 @@ public interface IGenTableService {
    * @return 字段信息结果集
    */
   public List<GenTableColumn> qyeryGenTableColumnList(GenTable genTable);
+  /**
+   * 通过主键查询表信息
+   * @param pkTable
+   * @return
+   */
+  public GenTable queryGenTableByPk(Long pkTable);
+  /**
+   * 保存表内容
+   * 
+   * @param genTable
+   * @return
+   */
+  public int insertGenTable(GenTable genTable);
+  /**
+   * 修改表内容
+   * @param genTable
+   * @return
+   */
+  public int updateGenTable(GenTable genTable);
+  /**
+   * 删除表信息
+   * @param pkTable
+   * @return
+   */
+  public int deleteGenTable(Long[] pkTable);
 }

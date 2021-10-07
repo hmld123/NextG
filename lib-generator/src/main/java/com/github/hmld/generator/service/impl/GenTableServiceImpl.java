@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.hmld.common.constant.GenConstants;
 import com.github.hmld.common.utils.StringUtils;
@@ -56,10 +57,81 @@ public class GenTableServiceImpl implements IGenTableService {
    */
   public GenTable queryGenTableByTableName(GenTable genTable){
     GenTable table = genTableMapper.queryGenTableByTableName(genTable);
+    StringBuilder tableSB = new StringBuilder();
+    String[] tableItems = genTable.getTableName().split("_");
+    for (String tableItem : tableItems) {
+      tableSB.append(tableItem.substring(0, 1).toUpperCase()+tableItem.substring(1, tableItem.length()));
+    }
+    table.setJavaClass(tableSB.toString());
     List<GenTableColumn> cols = genTableMapper.qyeryGenTableColumnList(genTable);
     List<GenTableColumn> list = initColumnField(cols, table);
     table.setColumnList(list);
     return table;
+  }
+  /**
+   * 通过主键查询表信息
+   * @param pkTable
+   * @return
+   */
+  public GenTable queryGenTableByPk(Long pkTable) {
+    GenTable table = genTableMapper.queryGenTableByPk(pkTable);
+    List<String> columPackages = genTableMapper.qyeryGenTableColumnPackagesPk(pkTable);
+    List<GenTableColumn> tableColums = genTableMapper.qyeryGenTableColumnListByPk(pkTable);
+    if (columPackages!=null) {
+      table.setColumPackages(columPackages);
+    }
+    if (tableColums!=null) {
+      table.setColumnList(tableColums);
+    }
+    return table;
+  }
+  /**
+   * 保存表内容
+   * 
+   * @param genTable
+   * @return
+   */
+  @Transactional
+  public int insertGenTable(GenTable genTable) {
+    int insertRow = genTableMapper.insertGenTable(genTable);
+    List<GenTableColumn> colums = genTable.getColumnList();
+    for (GenTableColumn genTableColumn : colums) {
+      genTableColumn.setPkTable(genTable.getPkTable());
+      genTableMapper.insertGenTableColumn(genTableColumn);
+    }
+    return insertRow;
+  }
+  
+  /**
+   * 修改表内容
+   * @param genTable
+   * @return
+   */
+  @Transactional
+  public int updateGenTable(GenTable genTable) {
+    genTableMapper.deleteGenTableColumn(genTable.getPkTable());
+    int updaterow = genTableMapper.updateGenTable(genTable);
+    List<GenTableColumn> list = genTable.getColumnList();
+    for (GenTableColumn genTableColumn : list) {
+      genTableColumn.setPkTable(genTable.getPkTable());
+      genTableMapper.insertGenTableColumn(genTableColumn);
+    }
+    return updaterow;
+  }
+  
+  /**
+   * 删除表信息
+   * @param pkTable
+   * @return
+   */
+  @Transactional
+  public int deleteGenTable(Long[] pkTables) {
+    int deleterow = 0;
+    for (Long pkTable : pkTables) {
+      genTableMapper.deleteGenTableColumn(pkTable);
+      deleterow = deleterow + genTableMapper.deleteGenTable(pkTable);
+    }
+    return deleterow;
   }
   
   /**
@@ -199,7 +271,7 @@ public class GenTableServiceImpl implements IGenTableService {
   private static void setIncrement(GenTableColumn column){
     if (column.getColumnDefault()!=null ) {
       String rex = "^nextval(.*$)";
-      Pattern r = Pattern.compile(rex );
+      Pattern r = Pattern.compile(rex);
       Matcher matcher = r.matcher(column.getColumnDefault());
       if (matcher.find()) {
         column.setIsIncrement(GenConstants.ENABLE);

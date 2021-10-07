@@ -62,5 +62,6 @@ public class GenConstants extends BaseGenConstants{
   public static final String[] TYPE_TIME = {"Time","java.sql.Time"};
   /** Timestamp类型 */
   public static final String[] TYPE_TIMESTAMP = {"Timestamp","java.sql.Timestamp"};
-  
+  /** 模板文件目录 */
+  public static final String TEMP_FLODER = "templates/";
 }

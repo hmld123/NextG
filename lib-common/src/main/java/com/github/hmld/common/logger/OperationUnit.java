@@ -11,8 +11,9 @@ public enum OperationUnit {
   USER("user"), 
   EMPLOYEE("employee"), 
   SERVER("server"), 
-  REDIS("redis");
-
+  REDIS("redis"),
+  DATABASE("database");
+  
   private String value;
 
   public String getValue() {

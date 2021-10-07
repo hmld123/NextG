@@ -2,172 +2,327 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.hmld.generator.mapper.GenTableMapper">
-  <!-- 业务表 -->
-  <resultMap type="GenTable" id="genTableResult">
-    <!-- 表对应的主键 -->
-    <id property="pkTable" column="pk_table"/>
-    <!-- 父表主键 -->
-    <result property="parentPkTable" column="parent_pk_table"/>
-    <!-- 表对应的主键 -->
-    <result property="tableCode" column="table_code"/>
-    <!-- 表对应的数据库名称 -->
-    <result property="tableCatalog" column="table_catalog"/>
-    <!-- 表对应的模式（命名空间）名称 -->
-    <result property="tableSchema" column="table_schema"/>
-    <!-- 表名称 -->
-    <result property="tableName" column="table_name"/>
-    <!-- 表注释 -->
-    <result property="tableComment" column="table_comment"/>
-    <!-- 表类型 -->
-    <result property="tableType" column="table_type"/>
-    <!-- 主键字段的所在列 -->
-    <result property="pknums" column="pk_nums" jdbcType="ARRAY" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
-    <!-- 包路径 -->
-    <result property="packagePatch" column="package_patch"/>
-    <!-- 模块编码 -->
-    <result property="moduleCode" column="module_code"/>
-    <!-- 功能编码 -->
-    <result property="functionCode" column="function_code"/>
-    <!-- 功能名 -->
-    <result property="functionName" column="function_name"/>
-    <!-- 功能作者 -->
-    <result property="functionAutableNamethor" column="function_author"/>
-    <!-- 生成路径 -->
-    <result property="genPatch" column="gen_patch"/>
-  </resultMap>
-  <!-- 业务表中关联的字段表数据 -->
-  <resultMap type="GenTable" id="columnListResult" extends="genTableResult">
-    <collection property="columnList" notNullColumn="java.util.List" resultMap="columnResult"></collection>
-  </resultMap>  
-  <!-- 字段表 -->
-  <resultMap type="GenTableColumn" id="columnResult">
-    <!-- 字段对应的主键 -->
-    <id property="pkColumn" column="pk_column"/>
-    <!-- 字段对应的编码 -->
-    <result property="columnCode" column="column_code"/>
-    <!-- 表对应的主键 -->
-    <result property="pkTable" column="pk_table"/>
-    <!-- 表对应的编码 -->
-    <result property="tableCode" column="table_code"/>
-    <!-- 字段对应的名称 -->
-    <result property="columnName" column="column_name"/>
-    <!-- 字段描述 -->
-    <result property="columnComment" column="column_comment"/>
-    <!-- 字段对应的类型 -->
-    <result property="columnType" column="column_type"/>
-    <!-- 字段对应的JAVA类型 -->
-    <result property="javaType" column="java_type"/>
-    <!-- 字段对应的JAVA字段名 -->
-    <result property="javaField" column="java_field"/>
-    <!-- 是否主键（1是） -->
-    <result property="isPk" column="is_pk"/>
-    <!-- 是否自增（1是） -->
-    <result property="isIncrement" column="is_increment"/>
-    <!-- 是否必填（1是） -->
-    <result property="isRequired" column="is_required"/>
-    <!-- 是否为保存该字段的值（1是） -->
-    <result property="isInsert" column="is_insert"/>
-    <!-- 是否可编辑字段（1是） -->
-    <result property="isEdit" column="is_edit"/>
-    <!-- 是否列表显示字段（1是） -->
-    <result property="isQuery" column="is_query"/>
-    <!-- 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围） -->
-    <result property="queryType" column="query_type"/>
-    <!-- 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件） -->
-    <result property="htmlType" column="html_type"/>
-    <!-- 字典类型 -->
-    <result property="dictType" column="dict_type"/>
-    <!-- 排序 -->
-    <result property="sort" column="sort" />
-    <!-- 默认值 -->
-    <result property="columnDefault" column="column_default"/>
-  </resultMap>
+<mapper
+	namespace="com.github.hmld.generator.mapper.GenTableMapper">
+	<!-- 业务表 -->
+	<resultMap type="GenTable" id="genTableResult">
+		<!-- 表对应的主键 -->
+		<id property="pkTable" column="pk_table" />
+		<!-- 父表主键 -->
+		<result property="parentPkTable" column="parent_pk_table" />
+		<!-- 表对应的主键 -->
+		<result property="tableCode" column="table_code" />
+		<!-- 表对应的数据库名称 -->
+		<result property="tableCatalog" column="table_catalog" />
+		<!-- 表对应的模式（命名空间）名称 -->
+		<result property="tableSchema" column="table_schema" />
+		<!-- 表名称 -->
+		<result property="tableName" column="table_name" />
+		<!-- 表注释 -->
+		<result property="tableComment" column="table_comment" />
+		<!-- 表类型 -->
+		<result property="tableType" column="table_type" />
+		<!-- 类名称 -->
+		<result property="javaClass" column="java_class" />
+		<!-- 主键字段的所在列 -->
+		<result property="pknums" column="pk_nums" jdbcType="ARRAY"
+			typeHandler="org.apache.ibatis.type.ArrayTypeHandler" />
+		<!-- 包路径 -->
+		<result property="packagePatch" column="package_patch" />
+		<!-- 模块编码 -->
+		<result property="moduleCode" column="module_code" />
+		<!-- 功能编码 -->
+		<result property="functionCode" column="function_code" />
+		<!-- 功能名 -->
+		<result property="functionName" column="function_name" />
+		<!-- 功能作者 -->
+		<result property="functionAuthor" column="function_author" />
+		<!-- 生成路径 -->
+		<result property="genPatch" column="gen_patch" />
+	</resultMap>
+	<!-- 业务表中关联的字段表数据 -->
+	<resultMap type="GenTable" id="columnListResult" extends="genTableResult">
+		<collection property="columnList" notNullColumn="java.util.List" resultMap="columnResult"></collection>
+	</resultMap>
+	<!-- 字段表 -->
+	<resultMap type="GenTableColumn" id="columnResult">
+		<!-- 字段对应的主键 -->
+		<id property="pkColumn" column="pk_column" />
+		<!-- 表对应的主键 -->
+		<result property="pkTable" column="pk_table" />
+		<!-- 表对应的编码 -->
+		<result property="tableCode" column="table_code" />
+		<!-- 字段对应的名称 -->
+		<result property="columnName" column="column_name" />
+		<!-- 字段描述 -->
+		<result property="columnComment" column="column_comment" />
+		<!-- 字段对应的类型 -->
+		<result property="columnType" column="column_type" />
+		<!-- 字段对应的JAVA类型 -->
+		<result property="javaType" column="java_type" />
+		<!-- 字段对应的JAVA类型的包路径 -->
+		<result property="javaTypePackage" column="java_type_package" />
+		<!-- 字段对应的JAVA字段名 -->
+		<result property="javaField" column="java_field" />
+		<!-- 是否主键（1是） -->
+		<result property="isPk" column="is_pk" />
+		<!-- 是否自增（1是） -->
+		<result property="isIncrement" column="is_increment" />
+		<!-- 是否必填（1是） -->
+		<result property="isRequired" column="is_required" />
+		<!-- 是否为保存该字段的值（1是） -->
+		<result property="isInsert" column="is_insert" />
+		<!-- 是否可编辑字段（1是） -->
+		<result property="isEdit" column="is_edit" />
+		<!-- 是否列表显示字段（1是） -->
+		<result property="isList" column="is_list" />
+		<!-- 是否列表显示字段（1是） -->
+		<result property="isQuery" column="is_query" />
+		<!-- 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围） -->
+		<result property="queryType" column="query_type" />
+		<!-- 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件） -->
+		<result property="htmlType" column="html_type" />
+		<!-- 字典类型 -->
+		<result property="dictType" column="dict_type" />
+		<!-- 排序 -->
+		<result property="sort" column="sort" />
+		<!-- 默认值 -->
+		<result property="columnDefault" column="column_default" />
+	</resultMap>
 
-  <!-- 查询数据库中的模式（命名空间） -->
-  <select id="queryTableNameSpaceList" parameterType="GenTable" resultMap="genTableResult">
-    select nspname table_schema from pg_catalog.pg_namespace 
-  </select>
-  <!-- 查询数据库中的表信息 -->
-  <select id="queryGenTableList" parameterType="GenTable" resultMap="genTableResult">
-	  select 
-		  a.table_code, 
-		  a.table_catalog ,
-		    a.table_schema , 
-		    a.table_name , 
-		    a.table_comment , 
-		    a.table_type,
-		    b.conkey pk_nums
-		from 
+	<!-- 查询数据库中的模式（命名空间） -->
+	<select id="queryTableNameSpaceList" parameterType="GenTable"
+		resultMap="genTableResult">
+		select nspname table_schema from pg_catalog.pg_namespace
+	</select>
+	<!-- 查询数据库中的表信息 -->
+	<select id="queryGenTableList" parameterType="GenTable"
+		resultMap="genTableResult">
+		select
+		a.table_code,
+		a.table_catalog ,
+		a.table_schema ,
+		a.table_name ,
+		a.table_comment ,
+		a.table_type,
+		b.conkey pk_nums
+		from
 		(
-		select 
-		    c.oid table_code, 
-		    t.table_catalog ,
-		    t.table_schema , 
-		    t.table_name , 
-		    cast(obj_description(c.oid,'pg_class') as varchar) as table_comment , 
-		    t.table_type 
-		    from information_schema.tables t
-		    left join pg_class c on c.relname = t.table_name 
-		    where t.table_schema = #{tableSchema}
-		) a left join 
+		select
+		c.oid table_code,
+		t.table_catalog ,
+		t.table_schema ,
+		t.table_name ,
+		cast(obj_description(c.oid,'pg_class') as varchar) as table_comment ,
+		t.table_type
+		from information_schema.tables t
+		left join pg_class c on c.relname = t.table_name
+		where t.table_schema = #{tableSchema}
+		) a left join
 		(
-		  select ct.conkey,ct.conname,ct.conrelid from pg_constraint ct 
-		  left join pg_catalog.pg_class pc on pc.oid  = ct.conrelid
-		  where  ct.contype = 'p'
+		select ct.conkey,ct.conname,ct.conrelid from pg_constraint ct
+		left join pg_catalog.pg_class pc on pc.oid = ct.conrelid
+		where ct.contype = 'p'
 		) b on a.table_code = b.conrelid
-  </select>
-  <!-- 通过表名称查询 -->
-  <select id="queryGenTableByTableName" parameterType="GenTable" resultMap="genTableResult">
-    select 
-      a.table_code, 
-      a.table_catalog ,
-        a.table_schema , 
-        a.table_name , 
-        a.table_comment , 
-        a.table_type,
-        b.conkey pk_nums
-    from 
-    (
-    select 
-        c.oid table_code, 
-        t.table_catalog ,
-        t.table_schema , 
-        t.table_name , 
-        cast(obj_description(c.oid,'pg_class') as varchar) as table_comment , 
-        t.table_type 
-        from information_schema.tables t
-        left join pg_class c on c.relname = t.table_name 
-        where t.table_schema = #{tableSchema} and t.table_name = #{tableName}
-    ) a left join 
-    (
-      select ct.conkey,ct.conname,ct.conrelid from pg_constraint ct 
-      left join pg_catalog.pg_class pc on pc.oid  = ct.conrelid
-      where  ct.contype = 'p'
-    ) b on a.table_code = b.conrelid
-  </select>
-  <!-- 查询数据库中对应的表的字段信息 -->
-  <select id="qyeryGenTableColumnList" parameterType="GenTable" resultMap="columnResult">
-		select 
+	</select>
+	<!-- 通过表名称查询 -->
+	<select id="queryGenTableByTableName" parameterType="GenTable"
+		resultMap="genTableResult">
+		select
+		a.table_code,
+		a.table_catalog ,
+		a.table_schema ,
+		a.table_name ,
+		a.table_comment ,
+		a.table_type,
+		b.conkey pk_nums
+		from
+		(
+		select
+		c.oid table_code,
+		t.table_catalog ,
+		t.table_schema ,
+		t.table_name ,
+		cast(obj_description(c.oid,'pg_class') as varchar) as table_comment ,
+		t.table_type
+		from information_schema.tables t
+		left join pg_class c on c.relname = t.table_name
+		where t.table_schema = #{tableSchema} and t.table_name = #{tableName}
+		) a left join
+		(
+		select ct.conkey,ct.conname,ct.conrelid from pg_constraint ct
+		left join pg_catalog.pg_class pc on pc.oid = ct.conrelid
+		where ct.contype = 'p'
+		) b on a.table_code = b.conrelid
+	</select>
+	<!-- 查询数据库中对应的表的字段信息 -->
+	<select id="qyeryGenTableColumnList" parameterType="GenTable"
+		resultMap="columnResult">
+		select
 		b.column_name ,
 		b.is_nullable is_required,
 		b.udt_name column_type,
 		a.attnum sort,
 		a.column_comment,
-		b.column_default 
-		from 
+		b.column_default
+		from
 		(
-		  select col_description(pa.attrelid,pa.attnum) as column_comment,pa.attnum,pa.attname 
-		  from pg_catalog.pg_attribute pa 
-		  left join pg_catalog.pg_class tb on tb.oid = pa.attrelid 
-		  left join pg_catalog.pg_namespace nsp on nsp.oid = tb.relnamespace 
-		  where tb.relname = #{tableName} and nsp.nspname = #{tableSchema} and attnum >0
+		select col_description(pa.attrelid,pa.attnum) as
+		column_comment,pa.attnum,pa.attname
+		from pg_catalog.pg_attribute pa
+		left join pg_catalog.pg_class tb on tb.oid = pa.attrelid
+		left join pg_catalog.pg_namespace nsp on nsp.oid = tb.relnamespace
+		where tb.relname = #{tableName} and nsp.nspname = #{tableSchema} and attnum
+		>0
 		) a
-		left join 
-		( 
-		  select c.column_name,c.column_default,c.is_nullable,udt_name
-		  from information_schema.columns c
-		  where c.table_name = #{tableName} and c.table_schema = #{tableSchema}
-		) b on a.attname = b.column_name
-  </select>
+		left join
+		(
+		select c.column_name,c.column_default,c.is_nullable,udt_name
+		from information_schema.columns c
+		where c.table_name = #{tableName} and c.table_schema = #{tableSchema}
+		) b on
+		a.attname = b.column_name
+	</select>
+	<!-- 通过主键查询表信息 -->
+	<select id="queryGenTableByPk" parameterType="Long" resultMap="genTableResult">
+		select 
+		pk_table, parent_pk_table, table_code, 
+		table_catalog, table_schema, table_name, 
+		table_comment, table_type, java_class, 
+		package_patch, module_code, function_code, 
+		function_name, function_author, gen_patch
+		from gentable where pk_table = #{pkTable}
+	</select>
+	<!-- 通过表主键查询表字段信息 -->
+	<select id="qyeryGenTableColumnListByPk" parameterType="Long" resultMap="columnResult">
+		select 
+		pk_column, pk_table, table_code, column_name, column_comment, 
+		column_type, java_type, java_field, is_pk, is_increment, 
+		is_required, is_insert, is_edit, is_list, is_query, query_type, 
+		html_type, dict_type, sort, column_default, java_type_package
+		from gen_table_column where pk_table = #{pkTable}
+	</select>
+	<!-- 获取表字段需要的包 -->
+	<select id="qyeryGenTableColumnPackagesPk" parameterType="Long" resultType="String">
+		select distinct java_type_package
+		from gen_table_column where pk_table = #{pkTable} 
+		and java_type_package is not null 
+	</select>
+	<!-- 保存表内容 -->
+	<insert id="insertGenTable" parameterType="GenTable"
+		useGeneratedKeys="true" keyProperty="pkTable">
+		insert into gentable
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="parentPkTable != null">parent_pk_table,</if>
+			<if test="tableCode != null">table_code,</if>
+			<if test="tableCatalog != null and tableCatalog != ''">table_catalog,</if>
+			<if test="tableSchema != null and tableSchema != ''">table_schema,</if>
+			<if test="tableName != null and tableName != ''">table_name,</if>
+			<if test="tableComment != null and tableComment != ''">table_comment,</if>
+			<if test="tableType != null and tableType != ''">table_type,</if>
+			<if test="javaClass != null and javaClass != ''">java_class,</if>
+			<if test="packagePatch != null and packagePatch != ''">package_patch,</if>
+			<if test="moduleCode != null and moduleCode != ''">module_code,</if>
+			<if test="functionCode != null and functionCode != ''">function_code,</if>
+			<if test="functionName != null and functionName != ''">function_name,</if>
+			<if test="functionAuthor != null and functionAuthor != ''">function_author,</if>
+			<if test="genPatch != null and genPatch != ''">gen_patch,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parentPkTable != null">#{parentPkTable},</if>
+			<if test="tableCode != null">#{tableCode},</if>
+			<if test="tableCatalog != null and tableCatalog != ''">#{tableCatalog},</if>
+			<if test="tableSchema != null and tableSchema != ''">#{tableSchema},</if>
+			<if test="tableName != null and tableName != ''">#{tableName},</if>
+			<if test="tableComment != null and tableComment != ''">#{tableComment},</if>
+			<if test="tableType != null and tableType != ''">#{tableType},</if>
+			<if test="javaClass != null and javaClass != ''">#{javaClass},</if>
+			<if test="packagePatch != null and packagePatch != ''">#{packagePatch},</if>
+			<if test="moduleCode != null and moduleCode != ''">#{moduleCode},</if>
+			<if test="functionCode != null and functionCode != ''">#{functionCode},</if>
+			<if test="functionName != null and functionName != ''">#{functionName},</if>
+			<if test="functionAuthor != null and functionAuthor != ''">#{functionAuthor},</if>
+			<if test="genPatch != null and genPatch != ''">#{genPatch},</if>
+		</trim>
+	</insert>
+	<!-- 更新表内容 -->
+	<update id="updateGenTable" parameterType="GenTable">
+		update gentable 
+		<set>
+			<if test="parentPkTable != null">parent_pk_table = #{parentPkTable},</if>
+			<if test="tableCode != null">table_code = #{tableCode},</if>
+			<if test="tableCatalog != null and tableCatalog != ''">table_catalog = #{tableCatalog},</if>
+			<if test="tableSchema != null and tableSchema != ''">table_schema = #{tableSchema},</if>
+			<if test="tableName != null and tableName != ''">table_name = #{tableName},</if>
+			<if test="tableComment != null and tableComment != ''">table_comment = #{tableComment},</if>
+			<if test="tableType != null and tableType != ''">table_type = #{tableType},</if>
+			<if test="javaClass != null and javaClass != ''">java_class = #{javaClass},</if>
+			<if test="packagePatch != null and packagePatch != ''">package_patch = #{packagePatch},</if>
+			<if test="moduleCode != null and moduleCode != ''">module_code = #{moduleCode},</if>
+			<if test="functionCode != null and functionCode != ''">function_code = #{functionCode},</if>
+			<if test="functionName != null and functionName != ''">function_name = #{functionName},</if>
+			<if test="functionAuthor != null and functionAuthor != ''">function_author = #{functionAuthor},</if>
+			<if test="genPatch != null and genPatch != ''">gen_patch = #{genPatch},</if>
+		</set>
+		where pk_table = #{pkTable}
+	</update>
+	
+	<delete id="deleteGenTable" parameterType="Long">
+		delete from gentable where pk_table = #{pkTable}
+	</delete>
+	
+	<!-- 保存表字段内容 -->
+	<insert id="insertGenTableColumn" parameterType="GenTableColumn" useGeneratedKeys="true" keyProperty="pkTable">
+		insert into gen_table_column
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pkTable != null">pk_table,</if>
+			<if test="tableCode != null">table_code,</if>
+			<if test="columnName != null and columnName != ''">column_name,</if>
+			<if test="columnComment != null and columnComment != ''">column_comment,</if>
+			<if test="columnType != null and columnType != ''">column_type,</if>
+			<if test="javaType != null and javaType != ''">java_type,</if>
+			<if test="javaTypePackage != null and javaTypePackage != ''">java_type_package,</if>
+			<if test="javaField != null">java_field,</if>
+			<if test="isPk != null and isPk != ''">is_pk,</if>
+			<if test="isIncrement != null and isIncrement != ''">is_increment,</if>
+			<if test="isRequired != null and isRequired != ''">is_required,</if>
+			<if test="isInsert != null and isInsert != ''">is_insert,</if>
+			<if test="isEdit != null and isEdit != ''">is_edit,</if>
+			<if test="isList != null and isList != ''">is_list,</if>
+			<if test="isQuery != null and isQuery != ''">is_query,</if>
+			<if test="queryType != null and queryType != ''">query_type,</if>
+			<if test="htmlType != null and htmlType != ''">html_type,</if>
+			<if test="dictType != null and dictType != ''">dict_type,</if>
+			<if test="sort != null and sort != ''">sort,</if>
+			<if test="columnDefault != null and columnDefault != ''">column_default,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pkTable != null">#{pkTable},</if>
+			<if test="tableCode != null">#{tableCode},</if>
+			<if test="columnName != null and columnName != ''">#{columnName},</if>
+			<if test="columnComment != null and columnComment != ''">#{columnComment},</if>
+			<if test="columnType != null and columnType != ''">#{columnType},</if>
+			<if test="javaType != null and javaType != ''">#{javaType},</if>
+			<if test="javaTypePackage != null and javaTypePackage != ''">#{javaTypePackage},</if>
+			<if test="javaField != null and javaField != ''">#{javaField},</if>
+			<if test="isPk != null and isPk != ''">#{isPk},</if>
+			<if test="isIncrement != null and isIncrement != ''">#{isIncrement},</if>
+			<if test="isRequired != null and isRequired != ''">#{isRequired},</if>
+			<if test="isInsert != null and isInsert != ''">#{isInsert},</if>
+			<if test="isEdit != null and isEdit != ''">#{isEdit},</if>
+			<if test="isList != null and isList != ''">#{isList},</if>
+			<if test="isQuery != null and isQuery != ''">#{isQuery},</if>
+			<if test="queryType != null and queryType != ''">#{queryType},</if>
+			<if test="htmlType != null and htmlType != ''">#{htmlType},</if>
+			<if test="dictType != null and dictType != ''">#{dictType},</if>
+			<if test="sort != null and sort != ''">#{sort},</if>
+			<if test="columnDefault != null and columnDefault != ''">#{columnDefault},</if>
+		</trim>
+	</insert>
+
+	<!-- 删除表字段 -->
+	<delete id="deleteGenTableColumn" parameterType="Long">
+		delete from gen_table_column where pk_table = #{pkTable}
+	</delete>
+
 </mapper>

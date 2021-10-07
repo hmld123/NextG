@@ -1,7 +1,7 @@
 spring:
   #数据库配置
   datasource:
-    url: jdbc:postgresql://172.16.139.128:5432/postgres
+    url: jdbc:postgresql://192.168.66.130:5432/postgres
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: hmld
