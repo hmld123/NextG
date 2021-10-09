@@ -133,7 +133,7 @@ public class GenTableController {
     Configuration cof = new Configuration(Configuration.VERSION_2_3_31);
     cof.setDefaultEncoding("utf-8");
     cof.setClassForTemplateLoading(getClass(), "/");
-    Template temp = cof.getTemplate(GenConstants.TEMP_FLODER+"java/mapper.ftl");
+    Template temp = cof.getTemplate(GenConstants.TEMP_FLODER+"mapper/mapper.ftl");
     File outFile = new File(uploadFloder + table.getJavaClass() +".java");
     FileOutputStream outos = new FileOutputStream(outFile);
     OutputStreamWriter outw = new OutputStreamWriter(outos);
