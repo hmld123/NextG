@@ -1,7 +1,6 @@
-package ${packagePatch}.${moduleCode}.${functionCode}.mapper;
+package ${packagePatch}.${moduleCode}.${functionCode}.service;
 
 import java.util.List;
-
 import ${packagePatch}.${moduleCode}.${functionCode}.domain.${javaClass};
 
 /**
@@ -9,13 +8,13 @@ import ${packagePatch}.${moduleCode}.${functionCode}.domain.${javaClass};
  * @author ${functionAuthor}
  *
  */
-public interface ${javaClass}Mapper {
-	/**
+public interface I${javaClass}Service {
+  /**
    * 查询${functionName}
    * @param ${javaClass ? uncap_first}
    * @return ${functionName}结果集
    */
-	public List<${javaClass}> query${javaClass}List(${javaClass} ${javaClass ? uncap_first});
+  public List<${javaClass}> query${javaClass}List(${javaClass} ${javaClass ? uncap_first});
   
   <#list columnList as colum>
 	<#if colum.isPk == '1'>
@@ -42,7 +41,7 @@ public interface ${javaClass}Mapper {
    */
   public int update${javaClass}List(${javaClass} ${javaClass ? uncap_first});
   
-	<#list columnList as colum>
+    <#list columnList as colum>
 	<#if colum.isPk == '1'>
 	/**
    * 删除${functionName}
