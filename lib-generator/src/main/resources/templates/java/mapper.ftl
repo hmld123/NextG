@@ -33,14 +33,14 @@ public interface ${javaClass}Mapper {
    * @param ${javaClass ? uncap_first} 主键
    * @return 结果
    */
-  public int insert${javaClass}List(${javaClass} ${javaClass ? uncap_first});
+  public int insert${javaClass}(${javaClass} ${javaClass ? uncap_first});
   
 	/**
    * 修改${functionName}
    * @param ${javaClass ? uncap_first}
    * @return 结果
    */
-  public int update${javaClass}List(${javaClass} ${javaClass ? uncap_first});
+  public int update${javaClass}(${javaClass} ${javaClass ? uncap_first});
   
 	<#list columnList as colum>
 	<#if colum.isPk == '1'>

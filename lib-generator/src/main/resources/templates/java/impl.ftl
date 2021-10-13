@@ -25,7 +25,7 @@ public class ${javaClass}ServiceImpl implements I${javaClass}Service {
 	 */
 	@Override
   public List<${javaClass}> query${javaClass}List(${javaClass} ${javaClass ? uncap_first}) {
-  	return ${javaClass ? uncap_first}Mapper.List<${javaClass}> query${javaClass}List(${javaClass ? uncap_first});
+  	return ${javaClass ? uncap_first}Mapper.query${javaClass}List(${javaClass ? uncap_first});
   }
 	
   <#list columnList as colum>
@@ -49,8 +49,8 @@ public class ${javaClass}ServiceImpl implements I${javaClass}Service {
    */
 	@Override
 	@Transactional
-  public int insert${javaClass}List(${javaClass} ${javaClass ? uncap_first}) {
-  	return ${javaClass ? uncap_first}Mapper.insert${javaClass}List(${javaClass ? uncap_first});
+  public int insert${javaClass}(${javaClass} ${javaClass ? uncap_first}) {
+  	return ${javaClass ? uncap_first}Mapper.insert${javaClass}(${javaClass ? uncap_first});
   }
   
 	/**
@@ -60,8 +60,8 @@ public class ${javaClass}ServiceImpl implements I${javaClass}Service {
    */
 	@Override
 	@Transactional
-  public int update${javaClass}List(${javaClass} ${javaClass ? uncap_first}) {
-  	return ${javaClass ? uncap_first}Mapper.update${javaClass}List(${javaClass ? uncap_first});
+  public int update${javaClass}(${javaClass} ${javaClass ? uncap_first}) {
+  	return ${javaClass ? uncap_first}Mapper.update${javaClass}(${javaClass ? uncap_first});
   }
   
 	<#list columnList as colum>

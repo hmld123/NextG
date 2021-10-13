@@ -13,7 +13,7 @@ import com.github.hmld.common.utils.LoggerUtil;
  * @author hmld
  */
 @SpringBootApplication()
-@MapperScan(basePackages = {"com.github.hmld.*.mapper"})
+@MapperScan(basePackages = {"com.github.hmld.**.mapper"})
 public class Next_G_Application {
   private static final Logger LOGGER = LoggerUtil.initLogger(Next_G_Application.class);
   

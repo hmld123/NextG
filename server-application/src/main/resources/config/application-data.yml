@@ -8,5 +8,6 @@ spring:
     
 # mybatis 配置
 mybatis: 
-  typeAliasesPackage: com.github.hmld.*
-  mapperLocations: classpath:mybatis/mapper/*.xml
+  typeAliasesPackage: com.github.hmld.**
+  mapperLocations: classpath*:mybatis/mapper/**/*.xml
+  configLocation: classpath:mybatis/mybatis-config.xml

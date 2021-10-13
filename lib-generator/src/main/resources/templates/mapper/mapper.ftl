@@ -21,7 +21,7 @@
 		<include refid="select${javaClass}Vo"/>
 		<where>
 		<#list columnList as colum>  
-			<if test="${colum.javaField} != null <#if colum.javaType =='String'>and configName != ''</#if>">
+			<if test="${colum.javaField} != null <#if colum.javaType =='String'>and ${colum.javaField} != ''</#if>">
 				AND ${colum.columnName} <#if colum.queryType =='EQ'> = ${r"#{"}${colum.javaField}}<#elseif colum.queryType =='NE'>!= ${r"#{"}${colum.javaField}}<#elseif colum.queryType =='GT'>&gt;= ${r"#{"}${colum.javaField}}<#elseif colum.queryType =='LT'>&lt;= ${r"#{"}${colum.javaField}}<#elseif colum.queryType =='LIKE'>like concat('%', ${r"#{"}${colum.javaField}}, '%')<#elseif colum.queryType =='BETWEEN'>&gt;= ${r"#{"}${colum.javaField}} and &lt;= ${r"#{"}${colum.javaField}}</#if>
 			</if>
 		</#list>
@@ -41,24 +41,24 @@
 		insert into ${tableName} (
 			<#list columnList as colum>
 			<#if colum.isIncrement != '1'>
-			<if test="${colum.javaType} != null <#if colum.javaType == 'String'>and ${colum.javaType} != ''</#if> ">${colum.columnName},</if>
+			<if test="${colum.javaField} != null <#if colum.javaType == 'String'>and ${colum.javaField} != ''</#if> ">${colum.columnName},</if>
 			</#if>
 			</#list>
 		) values(
 			<#list columnList as colum>
 			<#if colum.isIncrement != '1'>
-			<if test="${colum.javaType} != null <#if colum.javaType == 'String'>and ${colum.javaType} != ''</#if> ">${r"#{"}${colum.javaField}},</if>
+			<if test="${colum.javaField} != null <#if colum.javaType == 'String'>and ${colum.javaField} != ''</#if> ">${r"#{"}${colum.javaField}},</if>
 			</#if>
 			</#list>
 		)
 	</insert>
 	<!-- 修改${functionName} -->
-	<update id="insert${javaClass}" parameterType="${javaClass}">
+	<update id="update${javaClass}" parameterType="${javaClass}">
 		update ${tableName}
 		<set>
 			<#list columnList as colum>
 			<#if colum.isPk != '1'>
-			<if test="${colum.javaType} != null <#if colum.javaType == 'String'>and ${colum.javaType} != ''</#if> ">${colum.columnName} = ${r"#{"}${colum.javaField}},</if>
+			<if test="${colum.javaField} != null <#if colum.javaType == 'String'>and ${colum.javaField} != ''</#if> ">${colum.columnName} = ${r"#{"}${colum.javaField}},</if>
 			</#if>
 			</#list>
 		</set>
