@@ -15,8 +15,11 @@ import com.github.hmld.generator.domain.GenTable;
 import com.github.hmld.generator.domain.GenTableColumn;
 import com.github.hmld.generator.mapper.GenTableMapper;
 import com.github.hmld.generator.service.IGenTableService;
+import com.github.hmld.properties.Nex_G_Propertie;
 @Service
 public class GenTableServiceImpl implements IGenTableService {
+	@Autowired
+  private Nex_G_Propertie sysprofile;
   @Autowired
   private GenTableMapper genTableMapper;
   /**
@@ -57,6 +60,7 @@ public class GenTableServiceImpl implements IGenTableService {
    */
   public GenTable queryGenTableByTableName(GenTable genTable){
     GenTable table = genTableMapper.queryGenTableByTableName(genTable);
+    initTbale(table);
     StringBuilder tableSB = new StringBuilder();
     String[] tableItems = genTable.getTableName().split("_");
     for (String tableItem : tableItems) {
@@ -109,6 +113,7 @@ public class GenTableServiceImpl implements IGenTableService {
    */
   @Transactional
   public int updateGenTable(GenTable genTable) {
+  	initTbale(genTable);
     genTableMapper.deleteGenTableColumn(genTable.getPkTable());
     int updaterow = genTableMapper.updateGenTable(genTable);
     List<GenTableColumn> list = genTable.getColumnList();
@@ -132,6 +137,28 @@ public class GenTableServiceImpl implements IGenTableService {
       deleterow = deleterow + genTableMapper.deleteGenTable(pkTable);
     }
     return deleterow;
+  }
+  
+  /**
+   * 初始化table
+   * @param table
+   */
+  private void initTbale(GenTable table) {
+  	if (table.getPkTable()==null || table.getPkTable().equals(0L)) {
+	  	table.setPackagePatch(sysprofile.getGenbasepack());
+	  	table.setModuleCode("system");
+	  	table.setFunctionCode("default");
+	  	table.setFunctionName("default");
+	  	table.setFunctionAuthor("system");
+  	}
+  	String genpath = sysprofile.getGenbasepack().replace(".", "/");
+  	if (StringUtils.isNotEmpty(table.getModuleCode())) {
+  		genpath = genpath + table.getModuleCode() + "/";
+		}
+  	if (StringUtils.isNotEmpty(table.getFunctionCode())) {
+  		genpath = genpath + table.getFunctionCode() + "/";
+		}
+  	table.setGenPatch(genpath);
   }
   
   /**

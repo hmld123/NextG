@@ -1,3 +1,4 @@
 nextg: 
-   version: 0.0.1
-   upload: /home/hmld/Desktop
+  version: 0.0.1
+  upload: D:/WorkSpace/eclipse-workspace/gen
+  genbasepack: com.github.hmld

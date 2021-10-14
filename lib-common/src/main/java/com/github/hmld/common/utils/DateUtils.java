@@ -1,6 +1,7 @@
 package com.github.hmld.common.utils;
 
 import java.lang.management.ManagementFactory;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +38,16 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
   public static Date getNowDate() {
     return new Date();
   }
-
+  
+  /**
+   * 获取当前Timestamp型日期
+   * 
+   * @return Timestamp() 当前日期
+   */
+  public static Timestamp getNowTimestamp() {
+    return new Timestamp(DateUtils.getNowDate().getTime());
+  }
+  
   public static String getDate() {
     return dateTimeNow(YYYY_MM_DD);
   }

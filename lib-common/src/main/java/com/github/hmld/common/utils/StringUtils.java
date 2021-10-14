@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import com.github.hmld.common.core.text.StrFormatter;
 
@@ -15,7 +16,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
   /** 下划线 */
   private static final char SEPARATOR = '_';
-
+  
   /**
    * 获取参数不为空值
    * 
@@ -388,4 +389,20 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
   public static <T> T cast(Object obj) {
     return (T) obj;
   }
+  
+  /**
+   * 生成盐
+   * @return
+   */
+  public static String getSalt() {
+  	return UUID.randomUUID().toString().replaceAll("-", NULLSTR).substring(0, 8);
+  }
+  /**
+   * 主键生成
+   * @return
+   */
+  public static String genPkStr() {
+  	return UUID.randomUUID().toString().replace("-", NULLSTR).substring(0, 20);
+  }
+  
 }

@@ -24,7 +24,13 @@ server:
   servlet: 
     # 项目路径
     context-path: /ng-api/
-    
+
+# mybatis 配置
+mybatis: 
+  typeAliasesPackage: com.github.hmld.**
+  mapperLocations: classpath*:mybatis/mapper/**/*.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+
 # log 日志配置
 logging: 
   config: classpath:./logbacks/logback-spring.xml

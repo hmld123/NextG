@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.hmld.system.role.mapper.SysRoleMapper">
+	<!-- default -->
+	<resultMap type="SysRole" id="sysRoleResult">
+	<!-- 角色主键 -->
+	<id property="rolePk" column="role_pk" />
+	<!-- 角色名称 -->
+	<result property="roleName" column="role_name" />
+	<!-- 角色键值 -->
+	<result property="roleKey" column="role_key" />
+	<!-- 显示顺序 -->
+	<result property="roleSort" column="role_sort" />
+	<!-- 状态（0正常 1停用） -->
+	<result property="status" column="status" />
+	<!-- 删除标志（0代表存在 2代表删除） -->
+	<result property="delFlag" column="del_flag" />
+	<!-- 更新时间 -->
+	<result property="updateTime" column="update_time" />
+	<!-- 更新人 -->
+	<result property="updateBy" column="update_by" />
+	<!-- 创建时间 -->
+	<result property="createTime" column="create_time" />
+	<!-- 创建人 -->
+	<result property="createBy" column="create_by" />
+	</resultMap>
+	
+	<sql id="selectSysRoleVo">
+		select  role_pk , role_name , role_key , role_sort , status , del_flag , update_time , update_by , create_time , create_by  from sys_role
+	</sql>
+	<!-- 查询default -->
+	<select id="querySysRoleList" parameterType="SysRole" resultMap="sysRoleResult">
+		<include refid="selectSysRoleVo"/>
+		<where>
+			<if test="rolePk != null and rolePk != ''">
+				AND role_pk  = #{rolePk}
+			</if>
+			<if test="roleName != null and roleName != ''">
+				AND role_name like concat('%', #{roleName}, '%')
+			</if>
+			<if test="roleKey != null and roleKey != ''">
+				AND role_key  = #{roleKey}
+			</if>
+			<if test="roleSort != null ">
+				AND role_sort  = #{roleSort}
+			</if>
+			<if test="status != null and status != ''">
+				AND status  = #{status}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND del_flag  = #{delFlag}
+			</if>
+			<if test="updateTime != null ">
+				AND update_time  = #{updateTime}
+			</if>
+			<if test="updateBy != null and updateBy != ''">
+				AND update_by  = #{updateBy}
+			</if>
+			<if test="createTime != null ">
+				AND create_time  = #{createTime}
+			</if>
+			<if test="createBy != null and createBy != ''">
+				AND create_by  = #{createBy}
+			</if>
+		</where>
+    </select>
+	<!-- 通过主键查询default -->
+	<select id="querySysRoleByPK" parameterType="String" resultMap="sysRoleResult">
+		<include refid="selectSysRoleVo"/>
+		where role_pk = #{rolePk}
+    </select>
+	<!-- 保存default -->
+	<insert id="insertSysRole" parameterType="SysRole">
+		insert into sys_role 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rolePk != null and rolePk != '' ">role_pk,</if>
+			<if test="roleName != null and roleName != '' ">role_name,</if>
+			<if test="roleKey != null and roleKey != '' ">role_key,</if>
+			<if test="roleSort != null  ">role_sort,</if>
+			<if test="status != null and status != '' ">status,</if>
+			<if test="delFlag != null and delFlag != '' ">del_flag,</if>
+			<if test="updateTime != null  ">update_time,</if>
+			<if test="updateBy != null and updateBy != '' ">update_by,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="createBy != null and createBy != '' ">create_by,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rolePk != null and rolePk != '' ">#{rolePk},</if>
+			<if test="roleName != null and roleName != '' ">#{roleName},</if>
+			<if test="roleKey != null and roleKey != '' ">#{roleKey},</if>
+			<if test="roleSort != null  ">#{roleSort},</if>
+			<if test="status != null and status != '' ">#{status},</if>
+			<if test="delFlag != null and delFlag != '' ">#{delFlag},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+			<if test="updateBy != null and updateBy != '' ">#{updateBy},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="createBy != null and createBy != '' ">#{createBy},</if>
+		</trim>
+	</insert>
+	<!-- 修改default -->
+	<update id="updateSysRole" parameterType="SysRole">
+		update sys_role
+		<set>
+			<if test="roleName != null and roleName != '' ">role_name = #{roleName},</if>
+			<if test="roleKey != null and roleKey != '' ">role_key = #{roleKey},</if>
+			<if test="roleSort != null  ">role_sort = #{roleSort},</if>
+			<if test="status != null and status != '' ">status = #{status},</if>
+			<if test="delFlag != null and delFlag != '' ">del_flag = #{delFlag},</if>
+			<if test="updateTime != null  ">update_time = #{updateTime},</if>
+			<if test="updateBy != null and updateBy != '' ">update_by = #{updateBy},</if>
+			<if test="createTime != null  ">create_time = #{createTime},</if>
+			<if test="createBy != null and createBy != '' ">create_by = #{createBy},</if>
+		</set>
+		where  role_pk = #{rolePk} 
+	</update>
+	<!-- 删除default -->
+	<delete id="deleteSysRoleByPK" parameterType="String" >
+		delete from sys_role where role_pk = #{rolePk}
+    </delete>
+    <!-- 删除default -->
+	<delete id="deleteSysRoleByPKS" parameterType="String" >
+		delete from sys_role where role_pk in
+		<foreach item="rolePk" collection="array" open="(" separator="," close=")">
+			#{rolePk}
+		</foreach>
+    </delete>
+</mapper>

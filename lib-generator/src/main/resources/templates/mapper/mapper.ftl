@@ -37,20 +37,22 @@
     </#if>
     </#list>
 	<!-- 保存${functionName} -->
-	<insert id="insert${javaClass}" parameterType="${javaClass}">
-		insert into ${tableName} (
+	<insert id="insert${javaClass}" parameterType="${javaClass}"<#list columnList as colum><#if colum.isIncrement = '1' && colum.isPk = '1'> useGeneratedKeys="true" keyProperty="${colum.javaField}"</#if></#list>>
+		insert into ${tableName} 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list columnList as colum>
 			<#if colum.isIncrement != '1'>
 			<if test="${colum.javaField} != null <#if colum.javaType == 'String'>and ${colum.javaField} != ''</#if> ">${colum.columnName},</if>
 			</#if>
 			</#list>
-		) values(
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<#list columnList as colum>
 			<#if colum.isIncrement != '1'>
 			<if test="${colum.javaField} != null <#if colum.javaType == 'String'>and ${colum.javaField} != ''</#if> ">${r"#{"}${colum.javaField}},</if>
 			</#if>
 			</#list>
-		)
+		</trim>
 	</insert>
 	<!-- 修改${functionName} -->
 	<update id="update${javaClass}" parameterType="${javaClass}">
