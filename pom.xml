@@ -28,6 +28,8 @@
 		<commonsIoVersion>2.9.0</commonsIoVersion>
 		<!-- oshi-core 版本 -->
 		<oshiCoreVersion>5.7.3</oshiCoreVersion>
+		<!-- jjwt 版本 -->
+		<jjwtVersion>0.9.1</jjwtVersion>
 	</properties>
 
 	<!-- 模块设置 -->

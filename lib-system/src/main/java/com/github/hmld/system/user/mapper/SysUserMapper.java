@@ -23,7 +23,12 @@ public interface SysUserMapper {
    * @return 用户管理 结果集
    */
   public SysUser querySysUserByPK(String userPk);
-  
+  /**
+   * 通过用户名查询用户
+   * @param userPk 主键
+   * @return 用户管理 结果集
+   */
+  public SysUser querySysUserByName(String userName);
 	/**
    * 保存用户管理
    * @param sysUser 主键

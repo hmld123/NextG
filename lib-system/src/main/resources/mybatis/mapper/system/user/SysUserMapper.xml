@@ -34,7 +34,7 @@
 				AND user_pk  = #{userPk}
 			</if>
 			<if test="userName != null and userName != ''">
-				AND user_name like concat('%', #{userName}, '%')
+				AND user_name = #{userName}
 			</if>
 			<if test="nickName != null and nickName != ''">
 				AND nick_name like concat('%', #{nickName}, '%')
@@ -63,7 +63,12 @@
 	<select id="querySysUserByPK" parameterType="String" resultMap="sysUserResult">
 		<include refid="selectSysUserVo"/>
 		where user_pk = #{userPk}
-    </select>
+  </select>
+  <!-- 通过用户名查询用户管理 -->
+	<select id="querySysUserByName" parameterType="String" resultMap="sysUserResult">
+		<include refid="selectSysUserVo"/>
+		where user_name = #{userName}
+  </select>
 	<!-- 保存用户管理 -->
 	<insert id="insertSysUser" parameterType="SysUser">
 		insert into sys_user 

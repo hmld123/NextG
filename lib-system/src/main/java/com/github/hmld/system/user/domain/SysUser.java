@@ -28,6 +28,8 @@ public class SysUser {
 	/** 用户密码*/
 	private SysUserPasswordHistory userPassWord;
 	
+	
+	
 	/** 
 	 * 设置 用户主键
 	 * @param userPk

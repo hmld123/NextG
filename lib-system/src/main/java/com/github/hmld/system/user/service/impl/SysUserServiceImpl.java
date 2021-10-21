@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.hmld.common.encrypt.EncryptEngine;
@@ -48,10 +49,26 @@ public class SysUserServiceImpl implements ISysUserService {
    * @return 用户管理 结果集
    */
 	@Override
+	@Cacheable(cacheNames = "authority", key = "#userPk")
   public SysUser querySysUserByPK(String userPk) {
   	return sysUserMapper.querySysUserByPK(userPk);
   }
   
+	/**
+   * 通过用户名查询用户
+   * @param userPk 主键
+   * @return 用户管理 结果集
+   */
+	@Override
+	public SysUser querySysUserByName(String username) {
+		SysUser user = sysUserMapper.querySysUserByName(username);
+		if (user!=null) {
+			SysUserPasswordHistory oldPassWd = passWordMapper.querySysUserPasswordHistoryByUserPK(user.getUserPk());
+			user.setUserPassWord(oldPassWd);
+		}
+		return user;
+	}
+	
 	/**
    * 保存用户管理
    * @param sysUser 主键

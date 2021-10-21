@@ -27,4 +27,8 @@ public class Constants {
    */
   public static final String HTTPS = "https://";
 
+  /**
+   * 令牌前缀
+   */
+  public static final String TOKEN_PREFIX = "Bearer ";
 }

@@ -23,6 +23,13 @@ public interface ISysUserService {
    */
   public SysUser querySysUserByPK(String userPk);
   
+  /**
+   * 通过主键查询用户管理
+   * @param userPk 主键
+   * @return 用户管理 结果集
+   */
+  public SysUser querySysUserByName(String username);
+  
 	/**
    * 保存用户管理
    * @param sysUser 主键

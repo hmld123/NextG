@@ -5,6 +5,16 @@ spring:
     encoding: utf-8
     # 国际化资源文件路径
     basename: i18n/messages
+  security.user:
+    name: user
+    password: 123
+  # 临时使用 thymeleaf 模板引擎
+  thymeleaf:
+    cache: false
+    prefix: classpath:/views/
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML5
   freemarker: 
     cache: false # 关闭模板缓存
     charset: utf-8
@@ -21,9 +31,9 @@ spring:
 server: 
   # 服务端口配置
   port: 8082
-  servlet: 
+  #servlet: 
     # 项目路径
-    context-path: /ng-api/
+    #context-path: /ng-api/
 
 # mybatis 配置
 mybatis: 
