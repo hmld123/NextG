@@ -24,10 +24,8 @@ public class SysUser {
 	private Timestamp createTime;
 	/** 创建人*/
 	private String createBy;
-	
 	/** 用户密码*/
 	private SysUserPasswordHistory userPassWord;
-	
 	
 	
 	/** 
@@ -170,5 +168,5 @@ public class SysUser {
 	public void setUserPassWord(SysUserPasswordHistory userPassWord) {
 		this.userPassWord = userPassWord;
 	}
-	
+
 }

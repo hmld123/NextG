@@ -1,7 +1,30 @@
 spring:
   #数据库配置
   datasource:
-    url: jdbc:postgresql://192.168.123.73:5432/postgres
+    url: jdbc:postgresql://172.27.180.96:5432/postgres
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: hmld
+
+  #redis 配置
+  redis:
+    # IP
+    host: 127.0.0.1
+    # 端口
+    port: 6379
+    #数据库
+    database: 0
+    #密码
+    passwrod:
+    #链接超出时间
+    timeout: 10s
+    #连接池配置
+    lettuce.pool:
+      #最小空闲连接数
+      min-idle: 0
+      #最大空闲连接数
+      max-idle: 8
+      #最大数据库连接数
+      max-active: 8
+      #链接最大阻塞事件
+      max-wait: -1ms

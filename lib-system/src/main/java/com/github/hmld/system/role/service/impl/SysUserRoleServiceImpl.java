@@ -1,6 +1,8 @@
 package com.github.hmld.system.role.service.impl;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,14 @@ import com.github.hmld.system.role.mapper.SysUserRoleMapper;
 public class SysUserRoleServiceImpl implements ISysUserRoleService {
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
-	
+	/**
+	 * 通过 用户主键 获取对应的角色编码
+	 * @param userPk
+	 * @return
+	 */
+	public Set<String> queryUserRoleByUserID(String userPk){
+		return sysUserRoleMapper.queryUserRoleByUserID(userPk);
+	}
 	/**
 	 * 查询 用户权限明细
 	 * @param sysUserRole

@@ -1,8 +1,10 @@
-package com.github.hmld.common.utils;
+package com.github.hmld.common.utils.ip;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.servlet.http.HttpServletRequest;
+
+import com.github.hmld.common.utils.StringUtils;
 import com.github.hmld.common.utils.html.EscapeUtil;
 
 /**

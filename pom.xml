@@ -30,6 +30,10 @@
 		<oshiCoreVersion>5.7.3</oshiCoreVersion>
 		<!-- jjwt 版本 -->
 		<jjwtVersion>0.9.1</jjwtVersion>
+		<!-- bitwalker UserAgentUtils 版本 -->
+		<bitwalkerVersion>1.21</bitwalkerVersion>
+		<!-- commons-pool2 版本 -->
+		<commonsPool2Version>2.11.1</commonsPool2Version>
 	</properties>
 
 	<!-- 模块设置 -->

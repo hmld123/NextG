@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.hmld.system.user.domain.SysUser;
@@ -60,6 +61,8 @@ public class LoginUser implements UserDetails {
 	@JsonIgnore
 	@Override
 	public String getPassword() {
+		String password = user.getUserPassWord().getUserPassword();
+		System.out.println(new BCryptPasswordEncoder().encode(password));
 		return user.getUserPassWord().getUserPassword();
 	}
 	/**
@@ -91,7 +94,7 @@ public class LoginUser implements UserDetails {
 	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 	/**
 	 * 是否可用，禁用的用户不能进行身份验证
@@ -200,14 +203,14 @@ public class LoginUser implements UserDetails {
 		this.os = os;
 	}
 	/**
-	 * 获取权限
+	 * 获取权限列表
 	 * @return
 	 */
 	public Set<String> getPermissions() {
 		return permissions;
 	}
 	/**
-	 * 设置权限
+	 * 设置权限列表
 	 * @param permissions
 	 */
 	public void setPermissions(Set<String> permissions) {
@@ -242,4 +245,13 @@ public class LoginUser implements UserDetails {
 	public void setUser(SysUser user) {
 		this.user = user;
 	}
+
+	public LoginUser(SysUser user, Set<String> permissions, List<SimpleGrantedAuthority> authorities) {
+		this.permissions = permissions;
+		this.authorities = authorities;
+		this.user = user;
+	}
+	
+	public LoginUser() {}
+
 }

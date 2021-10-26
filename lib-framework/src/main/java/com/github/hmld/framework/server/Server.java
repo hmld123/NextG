@@ -11,7 +11,7 @@ import com.github.hmld.framework.server.entity.Mem;
 import com.github.hmld.framework.server.entity.Sys;
 import com.github.hmld.framework.server.entity.SysFile;
 import com.github.hmld.common.utils.Arith;
-import com.github.hmld.common.utils.IpUtils;
+import com.github.hmld.common.utils.ip.IpUtils;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;

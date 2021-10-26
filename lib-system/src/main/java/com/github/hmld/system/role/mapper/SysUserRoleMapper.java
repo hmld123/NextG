@@ -1,6 +1,7 @@
 package com.github.hmld.system.role.mapper;
 
 import java.util.List;
+import java.util.Set;
 
 import com.github.hmld.system.role.domain.SysUserRole;
 
@@ -10,6 +11,12 @@ import com.github.hmld.system.role.domain.SysUserRole;
  *
  */
 public interface SysUserRoleMapper {
+	/**
+	 * 通过 用户主键 获取对应的角色编码
+	 * @param userPk
+	 * @return
+	 */
+	public Set<String> queryUserRoleByUserID(String userPk);
 	/**
    * 查询 用户权限明细
    * @param sysUserRole

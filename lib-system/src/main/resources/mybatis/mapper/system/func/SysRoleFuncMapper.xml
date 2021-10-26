@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.hmld.system.func.mapper.SysRoleFuncMapper">
+	<!-- 角色权限 -->
+	<resultMap type="SysRoleFunc" id="sysRoleFuncResult">
+		<result property="rolePk" column="role_pk"/>
+		<result property="funcPk" column="func_pk"/>
+	</resultMap>
+	<!-- 获取用户的权限 -->
+	<select id="queryUserPermsByID" parameterType="String" resultType="String">
+		select distinct sf.fun_perms from sys_func sf 
+		left join sys_role_func srf on sf.func_pk = srf.func_pk 
+		left join sys_user_role sur on srf.role_pk = sur.role_pk 
+		where sur.user_pk = #{userPk}
+	</select>
+</mapper>

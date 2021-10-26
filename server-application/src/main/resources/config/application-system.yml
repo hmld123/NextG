@@ -49,6 +49,15 @@ logging:
     org: 
       mybatis: debug
   
+# token配置
+token: 
+  # token 标识
+  header: Authorization
+  # token 密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # token 有效期
+  expireTime: 30
+
 # XSS防护
 xss: 
   # 过滤开关

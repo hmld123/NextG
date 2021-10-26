@@ -63,7 +63,13 @@
 	<select id="querySysUserRoleByPK" parameterType="String" resultMap="sysUserRoleResult">
 		<include refid="selectSysUserRoleVo"/>
 		where sur_pk = #{surPk}
-    </select>
+  </select>
+  <!-- 获取用户角色 -->
+  <select id="queryUserRoleByUserID" parameterType="String" resultType="String">
+  	select DISTINCT sr.role_key from sys_role sr left join
+		sys_user_role sur on sur.role_pk = sr.role_pk 
+		where sur.user_pk = #{userPk}
+  </select>
 	<!-- 保存default -->
 	<insert id="insertSysUserRole" parameterType="SysUserRole">
 		insert into sys_user_role 
