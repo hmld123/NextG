@@ -17,6 +17,7 @@ import com.github.hmld.common.logger.OperationType;
 import com.github.hmld.common.logger.OperationUnit;
 
 import com.github.hmld.system.user.domain.SysUser;
+import com.github.hmld.system.user.domain.SysUserModel;
 import com.github.hmld.system.user.service.ISysUserService;
 /**
  * 用户管理
@@ -62,7 +63,7 @@ import com.github.hmld.system.user.service.ISysUserService;
   @Log(level = 0,detail = "saveSysUser()",operationType = OperationType.INSERT,operationUnit = OperationUnit.DATABASE)
   @PostMapping("/sysUser")
   @ResponseBody
-  public AjaxResult saveSysUser(@RequestBody SysUser sysUser){
+  public AjaxResult saveSysUser(@RequestBody SysUserModel sysUser){
   	return AjaxResult.success(sysUserService.insertSysUser(sysUser));
   }
   
@@ -74,7 +75,7 @@ import com.github.hmld.system.user.service.ISysUserService;
   @Log(level = 0,detail = "updateSysUserPassWord()",operationType = OperationType.UPDATE,operationUnit = OperationUnit.DATABASE)
   @PostMapping("/sysUser/password")
   @ResponseBody
-  public AjaxResult updateSysUserPassWord(@RequestBody SysUser sysUser){
+  public AjaxResult updateSysUserPassWord(@RequestBody SysUserModel sysUser){
   	return AjaxResult.success(sysUserService.updateSysUserPassWord(sysUser));
   }
   

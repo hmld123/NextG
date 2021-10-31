@@ -1,9 +1,9 @@
 package com.github.hmld.common.utils.ip;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.hmld.common.constant.Constants;
-import com.github.hmld.common.utils.StringUtils;
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.github.hmld.common.constant.Constants;
+//import com.github.hmld.common.utils.StringUtils;
 
 /**
  * 地址工具类
@@ -21,7 +21,7 @@ public class AddressUtils {
 
   public static String getRealAddressByIP(String ip)
   {
-      String address = UNKNOWN;
+//      String address = UNKNOWN;
       // 内网不查询
       if (IpUtils.internalIp(ip))
       {

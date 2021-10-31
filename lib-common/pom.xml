@@ -110,7 +110,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>
-			<version>${commonsPool2Version}</version>
+			<!-- <version>${commonsPool2Version}</version> -->
 		</dependency>
 		<!-- javax.servlet-api -->
 		<dependency>

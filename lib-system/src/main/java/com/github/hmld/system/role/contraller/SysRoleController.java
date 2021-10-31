@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.hmld.common.core.domain.AjaxResult;
+import com.github.hmld.common.exception.EnityRequiredException;
 import com.github.hmld.common.logger.Log;
 import com.github.hmld.common.logger.OperationType;
 import com.github.hmld.common.logger.OperationUnit;
 
 import com.github.hmld.system.role.domain.SysRole;
+import com.github.hmld.system.role.domain.SysRoleModel;
 import com.github.hmld.system.role.service.ISysRoleService;
 /**
  * 权限设置
@@ -36,7 +38,7 @@ import com.github.hmld.system.role.service.ISysRoleService;
    * @return  权限设置结果集
    */
   @Log(level = 0,detail = "getSysRoles()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
-  @GetMapping("/sysRoles")
+  @GetMapping
   @ResponseBody
   public AjaxResult getSysRoles(@RequestBody SysRole sysRole) {
   	return AjaxResult.success(sysRoleService.querySysRoleList(sysRole));
@@ -48,7 +50,7 @@ import com.github.hmld.system.role.service.ISysRoleService;
    * @return  权限设置 结果集
    */
   @Log(level = 0,detail = "getSysRole()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
-  @GetMapping("/sysRole/{rolePk}")
+  @GetMapping("/{rolePk}")
   @ResponseBody
   public AjaxResult getSysRole(@PathVariable String rolePk) {
   	return AjaxResult.success(sysRoleService.querySysRoleByPK(rolePk));
@@ -60,10 +62,16 @@ import com.github.hmld.system.role.service.ISysRoleService;
    * @return 结果
    */
   @Log(level = 0,detail = "saveSysRole()",operationType = OperationType.INSERT,operationUnit = OperationUnit.DATABASE)
-  @PostMapping("/sysRole")
+  @PostMapping
   @ResponseBody
-  public AjaxResult saveSysRole(@RequestBody SysRole sysRole){
-  	return AjaxResult.success(sysRoleService.insertSysRole(sysRole));
+  public AjaxResult saveSysRole(@RequestBody SysRoleModel sysRole){
+  	try {
+			SysRole.retryEnity(sysRole);
+	  	return AjaxResult.success(sysRoleService.insertSysRole(sysRole));
+		} catch (EnityRequiredException e) {
+			e.printStackTrace();
+			return AjaxResult.error(e.getMessage());
+		}
   }
   
 	/**
@@ -72,9 +80,9 @@ import com.github.hmld.system.role.service.ISysRoleService;
    * @return 结果
    */
   @Log(level = 0,detail = "updateSysRole()",operationType = OperationType.UPDATE,operationUnit = OperationUnit.DATABASE)
-  @PutMapping("/sysRole")
+  @PutMapping
   @ResponseBody
-  public AjaxResult updateSysRole(@RequestBody SysRole sysRole){
+  public AjaxResult updateSysRole(@RequestBody SysRoleModel sysRole){
   	return AjaxResult.success(sysRoleService.updateSysRole(sysRole));
   }
 	/**
@@ -83,7 +91,7 @@ import com.github.hmld.system.role.service.ISysRoleService;
    * @return 结果
    */
   @Log(level = 0,detail = "deleteSysRole()",operationType = OperationType.DELETE,operationUnit = OperationUnit.DATABASE)
-  @DeleteMapping("/sysRole/{rolePks}")
+  @DeleteMapping("/{rolePks}")
   @ResponseBody
   public AjaxResult deleteSysRole(@PathVariable String[] rolePks) {
   	return AjaxResult.success(sysRoleService.deleteSysRoleByPKS(rolePks));
