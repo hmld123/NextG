@@ -37,7 +37,7 @@ import com.github.hmld.system.user.service.ISysUserService;
    * @return 用户管理结果集
    */
   @Log(level = 0,detail = "getSysUsers()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
-  @GetMapping("/sysUsers")
+  @GetMapping
   @ResponseBody
   public AjaxResult getSysUsers(@RequestBody SysUser sysUser) {
   	return AjaxResult.success(sysUserService.querySysUserList(sysUser));
@@ -49,7 +49,7 @@ import com.github.hmld.system.user.service.ISysUserService;
    * @return 用户管理 结果集
    */
   @Log(level = 0,detail = "getSysUser()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
-  @GetMapping("/sysUser/{userPk}")
+  @GetMapping("/{userPk}")
   @ResponseBody
   public AjaxResult getSysUser(@PathVariable String userPk) {
   	return AjaxResult.success(sysUserService.querySysUserByPK(userPk));
@@ -61,7 +61,7 @@ import com.github.hmld.system.user.service.ISysUserService;
    * @return 结果
    */
   @Log(level = 0,detail = "saveSysUser()",operationType = OperationType.INSERT,operationUnit = OperationUnit.DATABASE)
-  @PostMapping("/sysUser")
+  @PostMapping
   @ResponseBody
   public AjaxResult saveSysUser(@RequestBody SysUserModel sysUser){
   	return AjaxResult.success(sysUserService.insertSysUser(sysUser));
@@ -73,7 +73,7 @@ import com.github.hmld.system.user.service.ISysUserService;
    * @return 结果
    */
   @Log(level = 0,detail = "updateSysUserPassWord()",operationType = OperationType.UPDATE,operationUnit = OperationUnit.DATABASE)
-  @PostMapping("/sysUser/password")
+  @PostMapping("/password")
   @ResponseBody
   public AjaxResult updateSysUserPassWord(@RequestBody SysUserModel sysUser){
   	return AjaxResult.success(sysUserService.updateSysUserPassWord(sysUser));
@@ -85,9 +85,9 @@ import com.github.hmld.system.user.service.ISysUserService;
    * @return 结果
    */
   @Log(level = 0,detail = "updateSysUser()",operationType = OperationType.UPDATE,operationUnit = OperationUnit.DATABASE)
-  @PutMapping("/sysUser")
+  @PutMapping
   @ResponseBody
-  public AjaxResult updateSysUser(@RequestBody SysUser sysUser){
+  public AjaxResult updateSysUser(@RequestBody SysUserModel sysUser){
   	return AjaxResult.success(sysUserService.updateSysUser(sysUser));
   }
 	/**
@@ -96,7 +96,7 @@ import com.github.hmld.system.user.service.ISysUserService;
    * @return 结果
    */
   @Log(level = 0,detail = "deleteSysUser()",operationType = OperationType.DELETE,operationUnit = OperationUnit.DATABASE)
-  @DeleteMapping("/sysUser/{userPks}")
+  @DeleteMapping("/{userPks}")
   @ResponseBody
   public AjaxResult deleteSysUser(@PathVariable String[] userPks) {
   	return AjaxResult.success(sysUserService.deleteSysUserByPKS(userPks));

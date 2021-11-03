@@ -58,4 +58,11 @@ public interface ISysUserRoleService {
    * @return 结果
    */
   public int deleteSysUserRoleByPKS(String[] surPks);
+  
+  /**
+   * 删除 用户权限明细
+   * @param sysUserRole
+   * @return
+   */
+  public int deleteSysUserRole(SysUserRole sysUserRole) ;
 }

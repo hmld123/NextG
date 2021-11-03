@@ -1,7 +1,10 @@
 package com.github.hmld.system.user.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +12,20 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.hmld.common.encrypt.EncryptEngine;
+import com.github.hmld.common.enums.UseFlgEmnu;
 import com.github.hmld.common.pwm.enigine.PassWordEnigine;
 import com.github.hmld.common.pwm.enigine.config.PassWordSetting;
 import com.github.hmld.common.utils.DateUtils;
 import com.github.hmld.common.utils.LoggerUtil;
 import com.github.hmld.common.utils.StringUtils;
+import com.github.hmld.framework.security.SecurityUtils;
 import com.github.hmld.system.user.domain.SysUser;
 import com.github.hmld.system.user.domain.SysUserModel;
 import com.github.hmld.system.user.domain.SysUserPasswordHistory;
+import com.github.hmld.system.user.domain.SysUserPerms;
+import com.github.hmld.system.user.domain.SysUserRole;
+import com.github.hmld.system.user.service.ISysUserPermsService;
+import com.github.hmld.system.user.service.ISysUserRoleService;
 import com.github.hmld.system.user.service.ISysUserService;
 import com.github.hmld.system.user.mapper.SysUserMapper;
 import com.github.hmld.system.user.mapper.SysUserPasswordHistoryMapper;
@@ -34,6 +43,11 @@ public class SysUserServiceImpl implements ISysUserService {
 	private SysUserMapper sysUserMapper;
 	@Autowired
 	private SysUserPasswordHistoryMapper passWordMapper;
+	@Autowired
+	private ISysUserPermsService permsService;
+	@Autowired
+	private ISysUserRoleService roleService;
+	
 	/**
 	 * 查询用户管理
 	 * @param sysUser
@@ -79,31 +93,139 @@ public class SysUserServiceImpl implements ISysUserService {
 	@Transactional
   public int insertSysUser(SysUserModel sysUser) {
 		try {
-			Timestamp creatTime = DateUtils.getNowTimestamp();
 			String salt = StringUtils.getSalt();
-			String userPass = genPass();
-			String passdata = EncryptEngine.encode(userPass.getBytes(), salt, salt.getBytes());
-			sysUser.setUserPk(StringUtils.genPkStr());
-			sysUser.setCreateTime(creatTime);
-			sysUser.setCreateBy("hmld");
+//			String userPass = genPass();
+			String passdata = EncryptEngine.encode(sysUser.getUserPassWord().getUserPassword().getBytes(), salt, salt.getBytes());
+			initUser(sysUser);
 			int insertRow = sysUserMapper.insertSysUser(sysUser);
 			// 密码配置
-			SysUserPasswordHistory userPassWord = new SysUserPasswordHistory();
-			userPassWord.setUserHistoryPk(StringUtils.genPkStr());
-			userPassWord.setUserPk(sysUser.getUserPk());
-			userPassWord.setUserName(sysUser.getUserName());
-			userPassWord.setNickName(sysUser.getNickName());
-			userPassWord.setSalt(salt);
-			userPassWord.setUserPassword(passdata);
-			userPassWord.setCreateTime(creatTime);
-			userPassWord.setCreateBy("hmld");
-			passWordMapper.insertSysUserPasswordHistory(userPassWord); 
+			passWordMapper.insertSysUserPasswordHistory(initPassWord(salt, passdata, sysUser)); 
+			for (SysUserRole role: sysUser.getRoles()) {
+				initRole(role);
+				roleService.insertSysUserRole(role);
+			}
+			for (SysUserPerms permis : sysUser.getPermis()) {
+				initPermis(permis);
+				permsService.insertSysUserPerms(permis);
+			};
   	return insertRow;
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			return 0;
 		}
   }
+	/**
+	 * 初始化用户角色
+	 * @param role
+	 */
+	private void initRole(SysUserRole role) {
+		role.setSurPk(StringUtils.genPkStr());
+		role.setCreateBy(SecurityUtils.getUserPk());
+		role.setCreateTime(DateUtils.getNowTimestamp());
+		role.setStatus(UseFlgEmnu.USE_TYPE);
+	}
+	/**
+	 * 初始化用户权限
+	 * @param permis
+	 */
+	private void initPermis(SysUserPerms permis) {
+		permis.setSupPk(StringUtils.genPkStr());
+		permis.setCreateBy(SecurityUtils.getUserPk());
+		permis.setCreateTime(DateUtils.getNowTimestamp());
+		permis.setStatus(UseFlgEmnu.USE_TYPE);
+	}
+	/**
+	 * 初始化用户
+	 * @param sysUser
+	 */
+	private void initUser(SysUserModel sysUser) {
+		sysUser.setUserPk(StringUtils.genPkStr());
+		sysUser.setCreateTime(DateUtils.getNowTimestamp());
+		sysUser.setCreateBy(SecurityUtils.getUserPk());
+	}
+	/**
+	 * 创建用户密码
+	 * @param salt
+	 * @param passdata
+	 * @param sysUser
+	 * @return
+	 */
+	private SysUserPasswordHistory initPassWord(String salt,String passdata,SysUserModel sysUser){
+		SysUserPasswordHistory userPassWord = new SysUserPasswordHistory();
+		userPassWord.setUserHistoryPk(StringUtils.genPkStr());
+		userPassWord.setUserPk(sysUser.getUserPk());
+		userPassWord.setUserName(sysUser.getUserName());
+		userPassWord.setNickName(sysUser.getNickName());
+		userPassWord.setSalt(salt);
+		userPassWord.setUserPassword(passdata);
+		userPassWord.setCreateTime(DateUtils.getNowTimestamp());
+		userPassWord.setCreateBy(SecurityUtils.getUserPk());
+		return userPassWord;
+	}
+	
+	/**
+	 * 更新用户角色和权限信息
+	 * @param sysUser
+	 */
+	private void updateUserRoleAndPermis(SysUserModel sysUser) {
+		Set<String> oldRoles = roleService.queryUserRoleByUserID(sysUser.getUserPk());
+		Set<String> odlPerms =	permsService.queryPermsByUserID(sysUser.getUserPk());
+		List<SysUserRole> delRoles = new ArrayList<SysUserRole>();
+		List<SysUserRole> insertRoles = new ArrayList<SysUserRole>();
+		for (SysUserRole role: sysUser.getRoles()) {
+			boolean has = false;
+			for (String oldRole : oldRoles) {
+				if (oldRole.equals(role.getRolePk())) {
+					has = true;
+				}
+			}
+			if (has) {
+				if(StringUtils.isEmpty(role.getRolePk())) {
+					initRole(role);
+					insertRoles.add(role);
+				}
+			}else {
+				role.setStatus(UseFlgEmnu.DEL_TYPE);
+				role.setUpdateTime(DateUtils.getNowTimestamp());
+				role.setUpdateBy(SecurityUtils.getUserPk());
+				delRoles.add(role);
+			}
+		}
+		
+		List<SysUserPerms> delPerms = new ArrayList<SysUserPerms>();
+		List<SysUserPerms> insertPerms = new ArrayList<SysUserPerms>();
+		for (SysUserPerms permis : sysUser.getPermis()) {
+			boolean has = false;
+			for (String odlPerm : odlPerms) {
+				if (odlPerm.equals(permis.getFuncPk())) {
+					has = true;
+				}
+			}
+			if (has) {
+				if(StringUtils.isEmpty(permis.getSupPk())) {
+					initPermis(permis);
+					insertPerms.add(permis);
+				}
+			}else {
+				permis.setStatus(UseFlgEmnu.DEL_TYPE);
+				permis.setUpdateTime(DateUtils.getNowTimestamp());
+				permis.setUpdateBy(SecurityUtils.getUserPk());
+				delPerms.add(permis);
+			}
+		}
+		for (SysUserPerms sysUserPerms : insertPerms) {
+			permsService.insertSysUserPerms(sysUserPerms);
+		}
+		for (SysUserPerms sysUserPerms : delPerms) {
+			permsService.deleteSysUserPerms(sysUserPerms);
+		}
+		for (SysUserRole sysUserRole : insertRoles) {
+			roleService.insertSysUserRole(sysUserRole);
+		}
+		for (SysUserRole sysUserRole : delRoles) {
+			roleService.deleteSysUserRole(sysUserRole);
+		}
+	}
 	
 	/**
    * 修改用户密码
@@ -113,6 +235,7 @@ public class SysUserServiceImpl implements ISysUserService {
 	@Override
 	@Transactional
   public int updateSysUserPassWord(SysUserModel sysUser) {
+		int updateRow = 0;
 		try {
 			SysUserPasswordHistory oldPassWd = passWordMapper.querySysUserPasswordHistoryByUserPK(sysUser.getUserPk());
 			String oldPassWdData = EncryptEngine.decode(oldPassWd.getUserPassword().getBytes(), oldPassWd.getSalt(), oldPassWd.getSalt().getBytes());
@@ -127,22 +250,14 @@ public class SysUserServiceImpl implements ISysUserService {
 			SysUserPasswordHistory oldPassWord = new SysUserPasswordHistory();
 			oldPassWord.setUserPk(thuser.getUserPk());
 			oldPassWord.setUpdateTime(creatTime);
-			oldPassWord.setUpdateBy("hmld");
-			oldPassWord.setStatus("1");
+			oldPassWord.setUpdateBy(SecurityUtils.getUserPk());
+			oldPassWord.setStatus(UseFlgEmnu.DEL_TYPE);
 			passWordMapper.desableOldPassWordByUserPk(oldPassWord);
-			SysUserPasswordHistory userPassWord = new SysUserPasswordHistory();
-			userPassWord.setUserHistoryPk(StringUtils.genPkStr());
-			userPassWord.setUserPk(thuser.getUserPk());
-			userPassWord.setUserName(thuser.getUserName());
-			userPassWord.setNickName(thuser.getNickName());
-			userPassWord.setSalt(newsalt);
-			userPassWord.setUserPassword(newpassdata);
-			userPassWord.setCreateTime(creatTime);
-			userPassWord.setCreateBy("hmld");
-			return passWordMapper.insertSysUserPasswordHistory(userPassWord); 
+			updateRow = passWordMapper.insertSysUserPasswordHistory(initPassWord(newsalt, newpassdata, sysUser)); 
+			return updateRow;
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-			return 0;
+			return updateRow;
 		}
   }
 	/**
@@ -152,8 +267,10 @@ public class SysUserServiceImpl implements ISysUserService {
    */
 	@Override
 	@Transactional
-  public int updateSysUser(SysUser sysUser) {
-		sysUser.setCreateTime(DateUtils.getNowTimestamp());
+  public int updateSysUser(SysUserModel sysUser) {
+		sysUser.setUpdateBy(SecurityUtils.getUserPk());
+		sysUser.setUpdateTime(DateUtils.getNowTimestamp());
+		updateUserRoleAndPermis(sysUser);
   	return sysUserMapper.updateSysUser(sysUser);
   }
   
@@ -183,6 +300,7 @@ public class SysUserServiceImpl implements ISysUserService {
 	 * 自动生成密码
 	 * @return 密码
 	 */
+	@SuppressWarnings("unused")
 	private String genPass() {
 		PassWordEnigine enigine = new PassWordEnigine();
 		PassWordSetting passWordSetting = new PassWordSetting();

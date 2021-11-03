@@ -48,7 +48,7 @@ public interface ISysUserService {
    * @param sysUser
    * @return 结果
    */
-  public int updateSysUser(SysUser sysUser);
+  public int updateSysUser(SysUserModel sysUser);
   
 	/**
    * 删除用户管理

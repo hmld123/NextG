@@ -83,6 +83,17 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService {
   
 	/**
    * 删除 用户权限明细
+   * @param surPk 主键
+   * @return 结果
+   */
+	@Override
+	@Transactional
+  public int deleteSysUserRole(SysUserRole sysUserRole) {
+		return sysUserRoleMapper.deleteSysUserRole(sysUserRole);
+	}
+	
+	/**
+   * 删除 用户权限明细
    * @param surPks 主键数组
    * @return 结果
    */

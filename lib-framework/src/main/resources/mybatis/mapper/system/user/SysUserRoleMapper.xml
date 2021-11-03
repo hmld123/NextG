@@ -1,78 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.hmld.system.role.mapper.SysUserRoleMapper">
+<mapper	namespace="com.github.hmld.system.role.mapper.SysUserRoleMapper">
 	<!-- default -->
 	<resultMap type="SysUserRole" id="sysUserRoleResult">
-	<!-- 用户权限主键 -->
-	<id property="surPk" column="sur_pk" />
-	<!-- 用户主键 -->
-	<result property="userPk" column="user_pk" />
-	<!-- 角色主键 -->
-	<result property="rolePk" column="role_pk" />
-	<!-- 状态（0正常 1停用） -->
-	<result property="status" column="status" />
-	<!-- 删除标志（0代表存在 2代表删除） -->
-	<result property="delFlag" column="del_flag" />
-	<!-- 更新时间 -->
-	<result property="updateTime" column="update_time" />
-	<!-- 更新人 -->
-	<result property="updateBy" column="update_by" />
-	<!-- 创建时间 -->
-	<result property="createTime" column="create_time" />
-	<!-- 创建人 -->
-	<result property="createBy" column="create_by" />
+		<!-- 用户权限主键 -->
+		<id property="surPk" column="sur_pk" />
+		<!-- 用户主键 -->
+		<result property="userPk" column="user_pk" />
+		<!-- 角色主键 -->
+		<result property="rolePk" column="role_pk" />
+		<!-- 状态（0正常 1停用） -->
+		<result property="status" column="status" />
+		<!-- 删除标志（0代表存在 2代表删除） -->
+		<result property="delFlag" column="del_flag" />
+		<!-- 更新时间 -->
+		<result property="updateTime" column="update_time" />
+		<!-- 更新人 -->
+		<result property="updateBy" column="update_by" />
+		<!-- 创建时间 -->
+		<result property="createTime" column="create_time" />
+		<!-- 创建人 -->
+		<result property="createBy" column="create_by" />
 	</resultMap>
-	
+
 	<sql id="selectSysUserRoleVo">
-		select  sur_pk , user_pk , role_pk , status , del_flag , update_time , update_by , create_time , create_by  from sys_user_role
+		select sur_pk , user_pk , role_pk , status , del_flag ,
+		update_time , update_by , create_time , create_by from sys_user_role
 	</sql>
 	<!-- 查询default -->
-	<select id="querySysUserRoleList" parameterType="SysUserRole" resultMap="sysUserRoleResult">
-		<include refid="selectSysUserRoleVo"/>
+	<select id="querySysUserRoleList" parameterType="SysUserRole"
+		resultMap="sysUserRoleResult">
+		<include refid="selectSysUserRoleVo" />
 		<where>
 			<if test="surPk != null and surPk != ''">
-				AND sur_pk  = #{surPk}
+				AND sur_pk = #{surPk}
 			</if>
 			<if test="userPk != null and userPk != ''">
-				AND user_pk  = #{userPk}
+				AND user_pk = #{userPk}
 			</if>
 			<if test="rolePk != null and rolePk != ''">
-				AND role_pk  = #{rolePk}
+				AND role_pk = #{rolePk}
 			</if>
 			<if test="status != null and status != ''">
-				AND status  = #{status}
+				AND status = #{status}
 			</if>
 			<if test="delFlag != null and delFlag != ''">
-				AND del_flag  = #{delFlag}
+				AND del_flag = #{delFlag}
 			</if>
 			<if test="updateTime != null ">
-				AND update_time  = #{updateTime}
+				AND update_time = #{updateTime}
 			</if>
 			<if test="updateBy != null and updateBy != ''">
-				AND update_by  = #{updateBy}
+				AND update_by = #{updateBy}
 			</if>
 			<if test="createTime != null ">
-				AND create_time  = #{createTime}
+				AND create_time = #{createTime}
 			</if>
 			<if test="createBy != null and createBy != ''">
-				AND create_by  = #{createBy}
+				AND create_by = #{createBy}
 			</if>
 		</where>
-    </select>
+	</select>
 	<!-- 通过主键查询default -->
-	<select id="querySysUserRoleByPK" parameterType="String" resultMap="sysUserRoleResult">
-		<include refid="selectSysUserRoleVo"/>
+	<select id="querySysUserRoleByPK" parameterType="String"
+		resultMap="sysUserRoleResult">
+		<include refid="selectSysUserRoleVo" />
 		where sur_pk = #{surPk}
-  </select>
-  <!-- 获取用户角色 -->
-  <select id="queryUserRoleByUserID" parameterType="String" resultType="String">
-  	select DISTINCT sr.role_key from sys_role sr left join
-		sys_user_role sur on sur.role_pk = sr.role_pk 
+	</select>
+	<!-- 获取用户角色 -->
+	<select id="queryUserRoleByUserID" parameterType="String"
+		resultType="String">
+		select DISTINCT sr.role_key from sys_role sr left join
+		sys_user_role sur on
+		sur.role_pk = sr.role_pk
 		where sur.user_pk = #{userPk}
-  </select>
+	</select>
 	<!-- 保存default -->
 	<insert id="insertSysUserRole" parameterType="SysUserRole">
-		insert into sys_user_role 
+		insert into sys_user_role
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="surPk != null and surPk != '' ">sur_pk,</if>
 			<if test="userPk != null and userPk != '' ">user_pk,</if>
@@ -109,17 +114,22 @@
 			<if test="createTime != null  ">create_time = #{createTime},</if>
 			<if test="createBy != null and createBy != '' ">create_by = #{createBy},</if>
 		</set>
-		where  sur_pk = #{surPk} 
+		where sur_pk = #{surPk}
 	</update>
 	<!-- 删除default -->
-	<delete id="deleteSysUserRoleByPK" parameterType="String" >
+	<delete id="deleteSysUserRoleByPK" parameterType="String">
 		delete from sys_user_role where sur_pk = #{surPk}
-    </delete>
-    <!-- 删除default -->
-	<delete id="deleteSysUserRoleByPKS" parameterType="String" >
+	</delete>
+	<!-- 删除default -->
+	<delete id="deleteSysUserRoleByPKS" parameterType="String">
 		delete from sys_user_role where sur_pk in
-		<foreach item="surPk" collection="array" open="(" separator="," close=")">
+		<foreach item="surPk" collection="array" open="("
+			separator="," close=")">
 			#{surPk}
 		</foreach>
-    </delete>
+	</delete>
+	<!-- 删除default -->
+	<delete id="deleteSysUserRole" parameterType="SysUserRole">
+		update sys_user_role set status = #{status} , update_by = #{updateBy} ,update_time = #{updateTime} where sur_pk = #{surPk}
+	</delete>
 </mapper>
