@@ -1,5 +1,6 @@
 package com.github.hmld.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ public class TestController {
 	
   @Log(level = 0,detail = "execPython()")
   @GetMapping("/do")
+  @PreAuthorize("@ss.hasPermi('py:test')")
   @ResponseBody
   public AjaxResult execPython() {
     return AjaxResult.success(MsageUtils.message("sys.version"));

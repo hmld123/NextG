@@ -67,9 +67,11 @@ public class TokenService {
   	if (StringUtils.isNotEmpty(token)) {
 			try {
 				Claims claims = praseToken(token);
-				String userKey = claims.get(Constants.LOGIN_TOKEN_KEY).toString();
-				return (LoginUser)redisCache.getCacheObject(userKey);
+				String userKey = (String) claims.get(Constants.LOGIN_USER_KEY);
+				LoginUser loginUser = redisCache.getCacheObject(getTokenKey(userKey));
+				return loginUser;
 			} catch (Exception e) {
+				e.printStackTrace();
 				return null;
 			}
   	}else {
@@ -142,7 +144,7 @@ public class TokenService {
 	private String getToken(HttpServletRequest request) {
 		String token = request.getHeader(tokenHeader);
 		if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
-			token.replace(Constants.TOKEN_PREFIX, "");
+			token = token.replace(Constants.TOKEN_PREFIX, "");
 		}
 		return token;
 	}

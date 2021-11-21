@@ -3,6 +3,7 @@ package com.github.hmld.system.user.mapper;
 import java.util.List;
 
 import com.github.hmld.system.user.domain.SysUser;
+import com.github.hmld.system.user.domain.SysUserModel;
 
 /**
  * 用户管理
@@ -28,7 +29,7 @@ public interface SysUserMapper {
    * @param userPk 主键
    * @return 用户管理 结果集
    */
-  public SysUser querySysUserByName(String userName);
+  public SysUserModel querySysUserByName(String userName);
 	/**
    * 保存用户管理
    * @param sysUser 主键

@@ -1,5 +1,6 @@
 package com.github.hmld.system.user.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import com.github.hmld.common.enums.UseFlgEmnu;
 import com.github.hmld.common.utils.StringUtils;
 import com.github.hmld.framework.security.core.domain.LoginUser;
 import com.github.hmld.system.user.domain.SysUser;
+import com.github.hmld.system.user.domain.SysUserModel;
 import com.github.hmld.system.user.service.ISysUserPermsService;
 import com.github.hmld.system.user.service.ISysUserRoleService;
 import com.github.hmld.system.user.service.ISysUserService;
@@ -37,8 +39,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		SysUser user = userService.querySysUserByName(username);
-		if (StringUtils.isNotNull(user)) {
+		SysUserModel user = userService.querySysUserByName(username);
+		if (StringUtils.isNull(user)) {
 			throw new UsernameNotFoundException(StringUtils.format("用户 {} 不存在", username));
 		}
 		if (user.getDelFlag().equals(DelFlgEmnu.DEL_TYPE)) {
@@ -51,12 +53,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	public UserDetails createLoginUser(SysUser user) {
-		Set<String> roles = userRoleService.queryUserRoleByUserID(user.getUserPk());
+		Set<String> roles = new HashSet<String>();
+		roles.addAll(userRoleService.queryUserRoleByUserID(user.getUserPk()));
 		roles.parallelStream().map(s -> "GROUP_"+s).collect(Collectors.toSet());
 		roles.add("ROLE_ACTIVITI_USER");
 		List<SimpleGrantedAuthority> collect = roles.stream().map(
         SimpleGrantedAuthority::new).collect(Collectors.toList());
-		Set<String> perms = userPermsService.queryPermsByUserID(user.getUserPk());
+		Set<String> perms = new HashSet<String>();
+		perms.addAll(userPermsService.queryPermsByUserID(user.getUserPk()));
+		perms.add("py:test");
 		return new LoginUser(user, perms, collect);
 	}
 	

@@ -6,9 +6,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.util.Assert;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 /**
@@ -19,12 +20,18 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
  */
 public class JsonRedisSerializer<T> implements RedisSerializer<T>{
 
-  private ObjectMapper objectMapper = new ObjectMapper();
-  
   public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
   private Class<T> clazz;
-  
+
+	@SuppressWarnings("unused")
+	private ObjectMapper objectMapper = new ObjectMapper();
+
+  static
+  {
+      ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+  }
+
   public JsonRedisSerializer(Class<T> clazz)
   {
       super();
@@ -38,12 +45,7 @@ public class JsonRedisSerializer<T> implements RedisSerializer<T>{
       {
           return new byte[0];
       }
-      try {
-				return objectMapper.writeValueAsString(t).getBytes(DEFAULT_CHARSET);
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-				return new byte[0];
-			}
+      return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);
   }
 
   @Override
@@ -54,21 +56,14 @@ public class JsonRedisSerializer<T> implements RedisSerializer<T>{
           return null;
       }
       String str = new String(bytes, DEFAULT_CHARSET);
-      try {
-				return objectMapper.readValue(str, clazz);
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-				return null;
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-				return null;
-			}
+
+      return JSON.parseObject(str, clazz);
   }
 
   public void setObjectMapper(ObjectMapper objectMapper)
   {
       Assert.notNull(objectMapper, "'objectMapper' must not be null");
-      this.objectMapper = objectMapper;
+      this.objectMapper  = objectMapper;
   }
 
   protected JavaType getJavaType(Class<?> clazz)

@@ -23,6 +23,28 @@
 	<result property="createBy" column="create_by" />
 	</resultMap>
 	
+	<!-- 用户管理 -->
+	<resultMap type="SysUserModel" id="sysUserModelResult">
+	<!-- 用户主键 -->
+	<id property="userPk" column="user_pk" />
+	<!-- 用户名 -->
+	<result property="userName" column="user_name" />
+	<!-- 昵称 -->
+	<result property="nickName" column="nick_name" />
+	<!-- 状态（0正常 1停用） -->
+	<result property="status" column="status" />
+	<!-- 删除标志（0代表存在 2代表删除） -->
+	<result property="delFlag" column="del_flag" />
+	<!-- 更新时间 -->
+	<result property="updateTime" column="update_time" />
+	<!-- 更新人 -->
+	<result property="updateBy" column="update_by" />
+	<!-- 创建时间 -->
+	<result property="createTime" column="create_time" />
+	<!-- 创建人 -->
+	<result property="createBy" column="create_by" />
+	</resultMap>
+	
 	<sql id="selectSysUserVo">
 		select  user_pk , user_name , nick_name , status , del_flag , update_time , update_by , create_time , create_by  from sys_user
 	</sql>
@@ -65,7 +87,7 @@
 		where user_pk = #{userPk}
   </select>
   <!-- 通过用户名查询用户管理 -->
-	<select id="querySysUserByName" parameterType="String" resultMap="sysUserResult">
+	<select id="querySysUserByName" parameterType="String" resultMap="sysUserModelResult">
 		<include refid="selectSysUserVo"/>
 		where user_name = #{userName}
   </select>

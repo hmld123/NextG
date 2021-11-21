@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.hmld.common.encrypt.EncryptEngine;
 import com.github.hmld.common.enums.UseFlgEmnu;
-import com.github.hmld.common.pwm.enigine.PassWordEnigine;
-import com.github.hmld.common.pwm.enigine.config.PassWordSetting;
 import com.github.hmld.common.utils.DateUtils;
 import com.github.hmld.common.utils.LoggerUtil;
 import com.github.hmld.common.utils.StringUtils;
@@ -76,13 +74,44 @@ public class SysUserServiceImpl implements ISysUserService {
    */
 	@Override
 	public SysUserModel querySysUserByName(String username) {
-		SysUserModel user = (SysUserModel)sysUserMapper.querySysUserByName(username);
+		SysUserModel user = sysUserMapper.querySysUserByName(username);
 		if (user!=null) {
 			SysUserPasswordHistory oldPassWd = passWordMapper.querySysUserPasswordHistoryByUserPK(user.getUserPk());
 			user.setUserPassWord(oldPassWd);
 		}
 		return user;
 	}
+	
+  /**
+   * 注册用户
+   * @param sysUser
+   * @return
+   */
+	@Override
+	@Transactional
+  public int insertSysUser(SysUserModel sysUser) {
+		try {
+			String salt = StringUtils.getSalt();
+			String passdata = EncryptEngine.encode(sysUser.getUserPassWord().getUserPassword().getBytes(), salt, salt.getBytes());
+			initUser(sysUser);
+			int insertRow = sysUserMapper.insertSysUser(sysUser);
+			// 密码配置
+			passWordMapper.insertSysUserPasswordHistory(initPassWord(salt, passdata, sysUser)); 
+			for (SysUserRole role: sysUser.getRoles()) {
+				initRole(role);
+				roleService.insertSysUserRole(role);
+			}
+			for (SysUserPerms permis : sysUser.getPermis()) {
+				initPermis(permis);
+				permsService.insertSysUserPerms(permis);
+			};
+  	return insertRow;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			return 0;
+		}
+  }
+	
 	
 	/**
    * 保存用户管理
@@ -91,15 +120,14 @@ public class SysUserServiceImpl implements ISysUserService {
    */
 	@Override
 	@Transactional
-  public int insertSysUser(SysUserModel sysUser) {
+  public int registerSysUser(SysUserModel sysUser) {
 		try {
 			String salt = StringUtils.getSalt();
-//			String userPass = genPass();
 			String passdata = EncryptEngine.encode(sysUser.getUserPassWord().getUserPassword().getBytes(), salt, salt.getBytes());
-			initUser(sysUser);
+			initRegisterUser(sysUser);
 			int insertRow = sysUserMapper.insertSysUser(sysUser);
 			// 密码配置
-			passWordMapper.insertSysUserPasswordHistory(initPassWord(salt, passdata, sysUser)); 
+			passWordMapper.insertSysUserPasswordHistory(initRegisterPassWord(salt, passdata, sysUser)); 
 			for (SysUserRole role: sysUser.getRoles()) {
 				initRole(role);
 				roleService.insertSysUserRole(role);
@@ -143,6 +171,17 @@ public class SysUserServiceImpl implements ISysUserService {
 		sysUser.setCreateTime(DateUtils.getNowTimestamp());
 		sysUser.setCreateBy(SecurityUtils.getUserPk());
 	}
+
+	/**
+	 * 初始化用户(注册用)
+	 * @param sysUser
+	 */
+	private void initRegisterUser(SysUserModel sysUser) {
+		sysUser.setUserPk(StringUtils.genPkStr());
+		sysUser.setCreateTime(DateUtils.getNowTimestamp());
+		sysUser.setCreateBy("SYSTEM");
+	}
+	
 	/**
 	 * 创建用户密码
 	 * @param salt
@@ -160,6 +199,26 @@ public class SysUserServiceImpl implements ISysUserService {
 		userPassWord.setUserPassword(passdata);
 		userPassWord.setCreateTime(DateUtils.getNowTimestamp());
 		userPassWord.setCreateBy(SecurityUtils.getUserPk());
+		return userPassWord;
+	}
+	
+	/**
+	 * 创建用户密码(注册用)
+	 * @param salt
+	 * @param passdata
+	 * @param sysUser
+	 * @return
+	 */
+	private SysUserPasswordHistory initRegisterPassWord(String salt,String passdata,SysUserModel sysUser){
+		SysUserPasswordHistory userPassWord = new SysUserPasswordHistory();
+		userPassWord.setUserHistoryPk(StringUtils.genPkStr());
+		userPassWord.setUserPk(sysUser.getUserPk());
+		userPassWord.setUserName(sysUser.getUserName());
+		userPassWord.setNickName(sysUser.getNickName());
+		userPassWord.setSalt(salt);
+		userPassWord.setUserPassword(passdata);
+		userPassWord.setCreateTime(DateUtils.getNowTimestamp());
+		userPassWord.setCreateBy("SYSTEM");
 		return userPassWord;
 	}
 	
@@ -296,19 +355,5 @@ public class SysUserServiceImpl implements ISysUserService {
   	return sysUserMapper.deleteSysUserByPKS(userPks);
   }
 	
-	/**
-	 * 自动生成密码
-	 * @return 密码
-	 */
-	@SuppressWarnings("unused")
-	private String genPass() {
-		PassWordEnigine enigine = new PassWordEnigine();
-		PassWordSetting passWordSetting = new PassWordSetting();
-		passWordSetting.setPassord_length(8);
-		passWordSetting.setHave_chinese(false);
-		passWordSetting.setHave_number(true);
-		passWordSetting.setHave_special(true);
-		return enigine.getPassWord(passWordSetting);
-	}
-	
+
 }

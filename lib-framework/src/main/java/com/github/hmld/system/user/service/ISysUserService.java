@@ -38,6 +38,12 @@ public interface ISysUserService {
    */
   public int insertSysUser(SysUserModel sysUser);
   /**
+   * 注册用户
+   * @param sysUser
+   * @return
+   */
+  public int registerSysUser(SysUserModel sysUser);
+  /**
    * 修改用户密码
    * @param sysUser
    * @return

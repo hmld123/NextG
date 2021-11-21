@@ -16,18 +16,19 @@ import org.springframework.stereotype.Component;
  * @author hmld
  *
  */
+@SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Component
 public class RedisCache {
 	
 	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisTemplate redisTemplate;
 	
 	/**
 	 * 缓存基本的对象
 	 * @param key 缓存的键
 	 * @param value 缓存的内容
 	 */
-	public void setCacheObject(final String key,final Object value) {
+	public <T> void setCacheObject(final String key,final T value) {
 		redisTemplate.opsForValue().set(key, value);
 	}
 	/**
@@ -37,7 +38,7 @@ public class RedisCache {
 	 * @param timeout 时间
 	 * @param timeUnit 时间粒度
 	 */
-	public void setCacheObject(final String key,final Object value,final Integer timeout, final TimeUnit timeUnit) {
+	public <T> void setCacheObject(final String key,final T value,final Integer timeout, final TimeUnit timeUnit) {
 		redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
 	}
 	
@@ -67,8 +68,8 @@ public class RedisCache {
 	 * @param key 缓存的键
 	 * @return 数据
 	 */
-	public Object getCacheObject(final String key){
-		ValueOperations<String, Object> operation = redisTemplate.opsForValue();
+	public <T> T getCacheObject(final String key){
+		ValueOperations<String, T> operation = redisTemplate.opsForValue();
 		return operation.get(key);
 	}
 	

@@ -34,6 +34,7 @@
 		<bitwalkerVersion>1.21</bitwalkerVersion>
 		<!-- commons-pool2 版本 -->
 		<commonsPool2Version>2.11.1</commonsPool2Version>
+		<fastjsonVersion>1.2.73</fastjsonVersion>
 	</properties>
 
 	<!-- 模块设置 -->

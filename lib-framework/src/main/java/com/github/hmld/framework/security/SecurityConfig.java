@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// 过滤请求
 		authorizeRequests().
 		// 设置可以用于匿名访问的路径
-		antMatchers("/login").anonymous().
+		antMatchers("/login","/register").anonymous().
 		anyRequest().authenticated().and().
 		// 这里不需要csrf防护并且禁用缓存
 		csrf().disable().headers().cacheControl();

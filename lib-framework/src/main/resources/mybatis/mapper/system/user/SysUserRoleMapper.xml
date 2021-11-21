@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper	namespace="com.github.hmld.system.role.mapper.SysUserRoleMapper">
+<mapper	namespace="com.github.hmld.system.user.mapper.SysUserRoleMapper">
 	<!-- default -->
 	<resultMap type="SysUserRole" id="sysUserRoleResult">
 		<!-- 用户权限主键 -->

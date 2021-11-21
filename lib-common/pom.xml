@@ -95,6 +95,12 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
+		<!-- fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>${fastjsonVersion}</version>
+		</dependency>
 		<!-- commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
