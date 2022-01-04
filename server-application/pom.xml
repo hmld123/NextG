@@ -11,8 +11,8 @@
 
 	<groupId>com.github.hmld.server</groupId>
 	<artifactId>server-application</artifactId>
-  <packaging>jar</packaging>
-  
+	<packaging>jar</packaging>
+
 	<!-- 依赖管理 -->
 	<dependencies>
 		<dependency>
@@ -38,7 +38,7 @@
 		</dependency>
 	</dependencies>
 
-  <!-- 构建配置 -->
+	<!-- 构建配置 -->
 	<build>
 		<plugins>
 			<plugin>
@@ -49,12 +49,21 @@
 					<addResources>true</addResources>
 				</configuration>
 				<executions>
-				  <execution>
-				    <goals>
-				      <goal>repackage</goal>
-				    </goals>
-				  </execution>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warName>${project.artifactId}</warName>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

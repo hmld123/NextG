@@ -17,24 +17,31 @@
 		<!-- 编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- spring版本 -->
-		<springbootVersion>2.4.6</springbootVersion>
+		<spring-boot.version>2.6.2</spring-boot.version>
 		<!-- mybatis 版本 -->
-		<mybatisVersion>3.5.7</mybatisVersion>
-		<!-- MyBatis Generator Core -->
-		<mybatisGeneratorVersion>1.4.0</mybatisGeneratorVersion>
+		<mybatis.version>3.5.8</mybatis.version>
 		<!-- mybatis-spring-boot-starter 版本 -->
-		<mybatisSpringBootStarterVersion>2.2.0</mybatisSpringBootStarterVersion>
+		<mybatis-spring-boot-starter.version>2.2.0</mybatis-spring-boot-starter.version>
+		<!-- pagehelper-spring-boot-starter 版本 -->
+		<pagehelper-spring-boot-starter.version>1.4.1</pagehelper-spring-boot-starter.version>
 		<!-- commons-io 版本 -->
-		<commonsIoVersion>2.9.0</commonsIoVersion>
+		<commons-io.version>2.9.0</commons-io.version>
 		<!-- oshi-core 版本 -->
-		<oshiCoreVersion>5.7.3</oshiCoreVersion>
+		<oshi-core.version>5.7.3</oshi-core.version>
 		<!-- jjwt 版本 -->
-		<jjwtVersion>0.9.1</jjwtVersion>
+		<jjwt.version>0.9.1</jjwt.version>
 		<!-- bitwalker UserAgentUtils 版本 -->
-		<bitwalkerVersion>1.21</bitwalkerVersion>
-		<!-- commons-pool2 版本 -->
-		<commonsPool2Version>2.11.1</commonsPool2Version>
-		<fastjsonVersion>1.2.73</fastjsonVersion>
+		<bitwalker.version>1.21</bitwalker.version>
+		<!-- fastjson 版本 -->
+		<fastjson.version>1.2.79</fastjson.version>
+		<!-- log4j2 版本 -->
+		<log4j2.version>2.17.0</log4j2.version>
+		<!-- jaxb-impl 版本 -->
+		<jaxb-impl.version>3.0.2</jaxb-impl.version>
+		<!-- jaxb-core 版本 -->
+		<jaxb-core.version>3.0.2</jaxb-core.version>
+		<!-- activation 版本 -->
+		<activation.version>1.1.1</activation.version>
 	</properties>
 
 	<!-- 模块设置 -->
@@ -69,7 +76,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${springbootVersion}</version>
+				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

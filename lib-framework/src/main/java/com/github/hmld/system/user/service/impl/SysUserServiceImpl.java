@@ -16,7 +16,7 @@ import com.github.hmld.common.enums.UseFlgEmnu;
 import com.github.hmld.common.utils.DateUtils;
 import com.github.hmld.common.utils.LoggerUtil;
 import com.github.hmld.common.utils.StringUtils;
-import com.github.hmld.framework.security.SecurityUtils;
+import com.github.hmld.framework.security.util.SecurityUtils;
 import com.github.hmld.system.user.domain.SysUser;
 import com.github.hmld.system.user.domain.SysUserModel;
 import com.github.hmld.system.user.domain.SysUserPasswordHistory;

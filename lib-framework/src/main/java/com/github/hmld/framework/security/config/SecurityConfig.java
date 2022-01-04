@@ -1,5 +1,4 @@
-package com.github.hmld.framework.security;
-
+package com.github.hmld.framework.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.filter.CorsFilter;
 
-import com.github.hmld.framework.security.config.AuthenticationEntryPointImpl;
-import com.github.hmld.framework.security.config.LogoutSuccessHandlerImpl;
 import com.github.hmld.framework.security.filter.JwtAuthenticationTokenFilter;
 import com.github.hmld.system.user.service.impl.UserDetailsServiceImpl;
 
@@ -68,7 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   {
       return super.authenticationManagerBean();
   }
-
 	
 	/**
 	 * 允许基于选择匹配在资源级配置基于网络的安全性。

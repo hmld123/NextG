@@ -17,10 +17,16 @@
 		<result property="updateBy" column="update_by"/>
 		<result property="createTime" column="create_time"/>
 		<result property="createBy" column="create_by"/>
+		<result property="component" column="component"/>
+		<result property="funcType" column="func_type"/>
+		<result property="icon" column="icon"/>
+		<result property="isFrame" column="is_frame"/>
 	</resultMap>
 	
 	<sql id="baseVO">
-		select func_pk, parent_id, func_name, func_url, fun_perms, visible, order_num, func_explanation, status, del_flag, update_time, update_by, create_time, create_by from sys_func 
+		select func_pk, parent_id, func_name, func_url, fun_perms, visible, order_num, func_explanation, 
+		component, func_type, icon, is_frame,
+		status, del_flag, update_time, update_by, create_time, create_by from sys_func 
 	</sql>
 	
 	<!-- 查询 系统功能 -->
@@ -64,6 +70,10 @@
 			<if test="updateBy !=null and updateBy !=''">update_by,</if>
 			<if test="createTime !=null">create_time,</if>
 			<if test="createBy !=null and createBy !=''">create_by,</if>
+			<if test="component !=null and component !=''">component,</if>
+			<if test="funcType !=null and funcType !=''">func_type,</if>
+			<if test="icon !=null and icon !=''">icon,</if>
+			<if test="isFrame !=null and isFrame !=''">is_frame,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="funcPk !=null and funcPk !=''">"#{funcPk},</if>
@@ -80,6 +90,10 @@
 			<if test="updateBy !=null and updateBy !=''">#{updateBy},</if>
 			<if test="createTime !=null">#{createTime},</if>
 			<if test="createBy !=null and createBy !=''">#{createBy},</if>
+			<if test="component !=null and component !=''">#{component},</if>
+			<if test="funcType !=null and funcType !=''">#{funcType},</if>
+			<if test="icon !=null and icon !=''">#{icon},</if>
+			<if test="isFrame !=null and isFrame !=''">#{isFrame},</if>
 		</trim>
 	</insert>
 	<!-- 修改 系统功能 -->
@@ -97,6 +111,10 @@
 			<if test="delFlag !=null and delFlag !=''">del_flag = #{delFlag},</if>
 			<if test="updateTime !=null">update_time = #{updateTime},</if>
 			<if test="updateBy !=null and updateBy !=''">update_by = #{updateBy},</if>
+			<if test="component !=null and component !=''">component = #{component},</if>
+			<if test="funcType !=null and funcType !=''">func_type = #{funcType},</if>
+			<if test="icon !=null and icon !=''">icon = #{icon},</if>
+			<if test="isFrame !=null and isFrame !=''">is_frame = #{isFrame},</if>
 		</set>
 		where func_pk = #{funcPk}
 	</update>

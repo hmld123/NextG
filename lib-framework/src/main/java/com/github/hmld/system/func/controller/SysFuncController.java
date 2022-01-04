@@ -1,5 +1,7 @@
 package com.github.hmld.system.func.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.hmld.common.core.domain.AjaxResult;
+import com.github.hmld.common.core.domain.DefaultController;
+import com.github.hmld.common.core.page.TableDataInfo;
 import com.github.hmld.common.enums.DelFlgEmnu;
 import com.github.hmld.common.exception.EnityRequiredException;
 import com.github.hmld.common.logger.Log;
 import com.github.hmld.common.logger.OperationType;
 import com.github.hmld.common.logger.OperationUnit;
 import com.github.hmld.common.utils.DateUtils;
-import com.github.hmld.framework.security.SecurityUtils;
+import com.github.hmld.framework.security.util.SecurityUtils;
 import com.github.hmld.system.func.domain.SysFunc;
 import com.github.hmld.system.func.service.ISysFuncService;
 /**
@@ -30,7 +34,7 @@ import com.github.hmld.system.func.service.ISysFuncService;
  */
 @Controller
 @RequestMapping("/system/func")
-public class SysFuncController {
+public class SysFuncController extends DefaultController{
 	@Autowired
 	private ISysFuncService sysFuncService;
 	
@@ -40,10 +44,12 @@ public class SysFuncController {
 	 * @return
 	 */
   @Log(level = 0,detail = "getSysFuncs()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
-	@GetMapping
+	@PostMapping("/list")
 	@ResponseBody
-	public AjaxResult getSysFuncs(@RequestBody SysFunc sysFunc) {
-		return AjaxResult.success(sysFuncService.querySysFuncList(sysFunc));
+	public TableDataInfo getSysFuncs(@RequestBody SysFunc sysFunc) {
+  	startPage();
+  	List<SysFunc> list = sysFuncService.querySysFuncList(sysFunc);
+		return getDataTable(list);
 	}
 	
 	/**

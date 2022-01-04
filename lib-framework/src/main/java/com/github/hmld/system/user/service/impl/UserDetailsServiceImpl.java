@@ -16,6 +16,7 @@ import com.github.hmld.common.enums.DelFlgEmnu;
 import com.github.hmld.common.enums.UseFlgEmnu;
 import com.github.hmld.common.utils.StringUtils;
 import com.github.hmld.framework.security.core.domain.LoginUser;
+import com.github.hmld.framework.security.core.domain.OnlineUser;
 import com.github.hmld.system.user.domain.SysUser;
 import com.github.hmld.system.user.domain.SysUserModel;
 import com.github.hmld.system.user.service.ISysUserPermsService;
@@ -53,16 +54,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	public UserDetails createLoginUser(SysUser user) {
-		Set<String> roles = new HashSet<String>();
-		roles.addAll(userRoleService.queryUserRoleByUserID(user.getUserPk()));
-		roles.parallelStream().map(s -> "GROUP_"+s).collect(Collectors.toSet());
-		roles.add("ROLE_ACTIVITI_USER");
-		List<SimpleGrantedAuthority> collect = roles.stream().map(
-        SimpleGrantedAuthority::new).collect(Collectors.toList());
-		Set<String> perms = new HashSet<String>();
-		perms.addAll(userPermsService.queryPermsByUserID(user.getUserPk()));
+		Set<String> roles = userRoleService.queryUserRoleByUserID(user.getUserPk());
+		Set<String> serverRoles = new HashSet<String>();
+		serverRoles.addAll(roles);
+		serverRoles.parallelStream().map(s -> "GROUP_"+s).collect(Collectors.toSet());
+		serverRoles.add("ROLE_ACTIVITI_USER");
+		List<SimpleGrantedAuthority> collect = serverRoles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+		Set<String> perms = userPermsService.queryPermsByUserID(user.getUserPk());
 		perms.add("py:test");
-		return new LoginUser(user, perms, collect);
+		return new LoginUser(new OnlineUser(perms, roles, user), serverRoles, collect);
 	}
 	
 }

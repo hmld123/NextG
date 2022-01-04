@@ -26,6 +26,15 @@ public class SysFunc {
 	private Integer orderNum;
 	/** 功能说明*/
 	private String funcExplanation;
+	/** 前端组件 */
+	private String component;
+	/** 功能类型 */
+	private String funcType;
+	/** 图标 */
+	private String icon;
+	/** 是否外链 */
+	private String isFrame;
+	
 	/** 状态（0正常 1停用）*/
 	private String status;
 	/** 删除标志（0代表存在 2代表删除）*/
@@ -38,6 +47,7 @@ public class SysFunc {
 	private Timestamp createTime;
 	/** 创建人*/
 	private String createBy;
+	
 	/**
 	 * 获取 功能主键
 	 * @return
@@ -235,7 +245,62 @@ public class SysFunc {
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
-	
+	/**
+	 * 获取组件地址
+	 * @return
+	 */
+	public String getComponent() {
+		return component;
+	}
+	/**
+	 * 设置组件地址
+	 * @param component
+	 */
+	public void setComponent(String component) {
+		this.component = component;
+	}
+	/**
+	 * 获取功能类型
+	 * @return
+	 */
+	public String getFuncType() {
+		return funcType;
+	}
+	/**
+	 * 设置功能类型
+	 * @param funcType
+	 */
+	public void setFuncType(String funcType) {
+		this.funcType = funcType;
+	}
+	/**
+	 * 获取图标
+	 * @return
+	 */
+	public String getIcon() {
+		return icon;
+	}
+	/**
+	 * 设置图标
+	 * @param icon
+	 */
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	/**
+	 * 获取是否外链
+	 * @return
+	 */
+	public String getIsFrame() {
+		return isFrame;
+	}
+	/**
+	 * 设置是否外链
+	 * @param isFrame
+	 */
+	public void setIsFrame(String isFrame) {
+		this.isFrame = isFrame;
+	}
 	/**
 	 * 必填项校验
 	 * @param sysFunc
@@ -253,6 +318,9 @@ public class SysFunc {
 		}
 		if (StringUtils.isEmpty(sysFunc.getFuncUrl())) {
 			throw new EnityRequiredException("数据请求地址不能为空");
+		}
+		if(StringUtils.isEmpty(sysFunc.getFuncType())) {
+			throw new EnityRequiredException("数据功能类型不能为空");
 		}
 		if (StringUtils.isEmpty(sysFunc.getFunPerms())) {
 			throw new EnityRequiredException("数据功能权限编码不能为空");

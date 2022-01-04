@@ -20,16 +20,17 @@ public class ResourcesConfig implements WebMvcConfigurer {
   @Bean
   public CorsFilter corsFilter()
   {
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       CorsConfiguration config = new CorsConfiguration();
+      // 是否允许请求带有验证信息
       config.setAllowCredentials(true);
       // 设置访问源地址
-      config.addAllowedOrigin("*");
+      config.addAllowedOriginPattern("*");
       // 设置访问源请求头
       config.addAllowedHeader("*");
       // 设置访问源请求方法
       config.addAllowedMethod("*");
       // 对接口配置跨域设置
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       source.registerCorsConfiguration("/**", config);
       return new CorsFilter(source);
   }

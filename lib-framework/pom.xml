@@ -23,7 +23,7 @@
     <dependency>
       <groupId>com.github.oshi</groupId>
       <artifactId>oshi-core</artifactId>
-      <version>${oshiCoreVersion}</version>
+      <version>${oshi-core.version}</version>
     </dependency>
   </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package com.github.hmld.framework.security;
+package com.github.hmld.framework.security.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,7 +51,7 @@ public class SecurityUtils
     {
         try
         {
-            return getLoginUser().getUser().getNickName();
+            return getLoginUser().getUser().getName();
         }
         catch (Exception e)
         {

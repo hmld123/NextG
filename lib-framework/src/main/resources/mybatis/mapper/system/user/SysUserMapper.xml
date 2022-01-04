@@ -9,6 +9,10 @@
 	<result property="userName" column="user_name" />
 	<!-- 昵称 -->
 	<result property="nickName" column="nick_name" />
+	<!-- 头像 -->
+	<result property="avatar" column="avatar" />
+	<!-- 介绍 -->
+	<result property="introduction" column="introduction" />
 	<!-- 状态（0正常 1停用） -->
 	<result property="status" column="status" />
 	<!-- 删除标志（0代表存在 2代表删除） -->
@@ -31,6 +35,10 @@
 	<result property="userName" column="user_name" />
 	<!-- 昵称 -->
 	<result property="nickName" column="nick_name" />
+	<!-- 头像 -->
+	<result property="avatar" column="avatar" />
+	<!-- 介绍 -->
+	<result property="introduction" column="introduction" />
 	<!-- 状态（0正常 1停用） -->
 	<result property="status" column="status" />
 	<!-- 删除标志（0代表存在 2代表删除） -->

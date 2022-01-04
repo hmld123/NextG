@@ -12,6 +12,10 @@ public class SysUser {
 	private String userName;
 	/** 昵称*/
 	private String nickName;
+	/** 头像*/
+	private String avatar;
+	/** 介绍*/
+	private String introduction;
 	/** 状态（0正常 1停用）*/
 	private String status;
 	/** 删除标志（0代表存在 2代表删除）*/
@@ -68,6 +72,34 @@ public class SysUser {
 	 */
 	public String getNickName () {
 	  return nickName;
+	}
+	/**
+	 * 获取头像
+	 * @return
+	 */
+	public String getAvatar() {
+		return avatar;
+	}
+	/**
+	 * 设置头像
+	 * @param avatar
+	 */
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	/**
+	 * 获取介绍
+	 * @return
+	 */
+	public String getIntroduction() {
+		return introduction;
+	}
+	/**
+	 * 设置介绍
+	 * @param introduction
+	 */
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 	/** 
 	 * 设置 状态（0正常 1停用）

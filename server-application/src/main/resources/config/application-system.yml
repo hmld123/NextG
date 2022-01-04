@@ -5,16 +5,6 @@ spring:
     encoding: utf-8
     # 国际化资源文件路径
     basename: i18n/messages
-  security.user:
-    name: user
-    password: 123
-  # 临时使用 thymeleaf 模板引擎
-  thymeleaf:
-    cache: false
-    prefix: classpath:/views/
-    encoding: UTF-8
-    suffix: .html
-    mode: HTML5
   freemarker: 
     cache: false # 关闭模板缓存
     charset: utf-8
@@ -40,6 +30,10 @@ mybatis:
   typeAliasesPackage: com.github.hmld.**
   mapperLocations: classpath*:mybatis/mapper/**/*.xml
   configLocation: classpath:mybatis/mybatis-config.xml
+
+pagehelper:
+  supportMethodsArguments: true
+  params: count=countSql
 
 # log 日志配置
 logging: 

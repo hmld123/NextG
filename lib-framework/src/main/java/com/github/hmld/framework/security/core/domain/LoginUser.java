@@ -7,11 +7,8 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.hmld.common.encrypt.EncryptEngine;
-import com.github.hmld.system.user.domain.SysUser;
 
 public class LoginUser implements UserDetails {
 
@@ -55,24 +52,14 @@ public class LoginUser implements UserDetails {
 	/**
 	 * 用户信息
 	 */
-	private SysUser user;
+	private OnlineUser user;
 	/**
 	 * 获取用户密码密文
 	 */
 	@JsonIgnore
 	@Override
 	public String getPassword() {
-		try {
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			String password = user.getUserPassWord().getUserPassword();
-			String salt = user.getUserPassWord().getSalt();
-			String ps = EncryptEngine.decode(password.getBytes(), salt, salt.getBytes());
-			String thpassword = passwordEncoder.encode(ps);
-			return thpassword;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return user.getUserPassWord().getUserPassword();
-		}
+		return user.getPassword();
 	}
 	/**
 	 * 获取用户 username
@@ -244,18 +231,18 @@ public class LoginUser implements UserDetails {
 	 * 获取用户信息
 	 * @return
 	 */
-	public SysUser getUser() {
+	public OnlineUser getUser() {
 		return user;
 	}
 	/**
 	 * 设置用户信息
 	 * @param user
 	 */
-	public void setUser(SysUser user) {
+	public void setUser(OnlineUser user) {
 		this.user = user;
 	}
 
-	public LoginUser(SysUser user, Set<String> permissions, List<SimpleGrantedAuthority> authorities) {
+	public LoginUser(OnlineUser user, Set<String> permissions, List<SimpleGrantedAuthority> authorities) {
 		this.permissions = permissions;
 		this.authorities = authorities;
 		this.user = user;
