@@ -30,7 +30,10 @@ export default {
       default: true
     },
     columns: {
-      type: Array 
+      type: Array,
+      default: () => {
+        return []
+      }
     }
   },
   data() {

@@ -33,7 +33,7 @@
           plain
           icon="el-icon-plus"
           size="mini"
-          @click="table = true"
+          @click="handleDrawerOpen"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -62,14 +62,14 @@
           size="mini"
         >导出</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showsearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :show-search.sync="showsearch" @queryTable="getList" />
     </el-row>
     <el-table
       v-loading="loading"
       :data="logininforList"
       row-key="funcPk"
-      @selection-change="handleSelectionChange"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column prop="funcName" align="center" label="功能名称" />
@@ -102,20 +102,54 @@
     />
     <!-- 添加修改页面 -->
     <el-drawer
-      title="添加功能"
+      :title="drawerTitle"
       :visible.sync="table"
       direction="rtl"
       size="100%"
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="form.name" placeholder="名称"></el-input>
+        <el-input v-if="false" v-model="form.funcPk" />
+        <el-form-item label="功能名称" prop="funcName">
+          <el-input v-model="form.funcName" size="small" placeholder="功能名称" />
+        </el-form-item>
+        <el-form-item label="父节点" prop="parentId">
+          <el-input v-model="form.parentId" size="small" placeholder="父节点" />
+        </el-form-item>
+        <el-form-item label="请求地址" prop="funcUrl">
+          <el-input v-model="form.funcUrl" size="small" placeholder="请求地址" />
+        </el-form-item>
+        <el-form-item label="功能权限编码" prop="funPerms">
+          <el-input v-model="form.funPerms" size="small" placeholder="功能权限编码" />
+        </el-form-item>
+        <el-form-item label="功能显示状态" prop="visible">
+          <el-input v-model="form.visible" size="small" placeholder="功能显示状态" />
+        </el-form-item>
+        <el-form-item label="排序" prop="orderNum">
+          <el-input v-model="form.orderNum" size="small" type="number" placeholder="排序" />
+        </el-form-item>
+        <el-form-item label="功能说明" prop="funcExplanation">
+          <el-input v-model="form.funcExplanation" placeholder="功能说明" />
+        </el-form-item>
+        <el-form-item label="前端组件" prop="component">
+          <el-input v-model="form.component" size="small" placeholder="前端组件" />
+        </el-form-item>
+        <el-form-item label="功能类型" prop="funcType">
+          <el-input v-model="form.funcType" size="small" placeholder="功能类型" />
+        </el-form-item>
+        <el-form-item label="图标" prop="icon">
+          <el-input v-model="form.icon" size="small" placeholder="图标" />
+        </el-form-item>
+        <el-form-item label="是否外链" prop="isFrame">
+          <el-input v-model="form.isFrame" size="small" placeholder="是否外链" />
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-input v-model="form.status" size="small" placeholder="状态" />
         </el-form-item>
       </el-form>
-      <!-- <div slot="footer"> -->
-        <el-button type="primary" @click="submitForm">确 定</el-button>
+      <div>
+        <el-button type="primary" :loading="loading" @click="submitForm">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
         <el-button @click="cancel">取 消</el-button>
-      <!-- </div> -->
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -139,6 +173,9 @@ export default {
       total: 0,
       // 系统访问记录表格数据
       logininforList: [],
+      // 添加修改页面title
+      drawerTitle: null,
+      timer: null,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -195,16 +232,47 @@ export default {
       this.single = selection.length !== 1
       this.multiple = !selection.length
     },
-    submitForm() {},
+
+    handleDrawerOpen() {
+      const from = this.form
+      if (from.funcPk == null) {
+        this.drawerTitle = '新增功能'
+      } else {
+        this.drawerTitle = '修改功能'
+      }
+      this.table = true
+    },
+    submitForm() {
+      if (this.loading) {
+        return
+      }
+      this.$confirm('确定要提交表单吗？')
+        .then(_ => {
+          this.loading = true
+          this.timer = setTimeout(() => {
+            // 动画关闭需要一定的时间
+            setTimeout(() => {
+              this.loading = false
+              this.cancel()
+            }, 400)
+          }, 2000)
+        })
+        .catch(_ => {})
+    },
     cancel() {
       this.table = false
+      clearTimeout(this.timer)
     }
   }
 }
 </script>
-<style>
+
+<style rel="stylesheet/scss" lang="scss">
 .top-right-btn {
 	position: relative;
 	float: right;
+}
+.el-drawer{
+  overflow: scroll;
 }
 </style>
