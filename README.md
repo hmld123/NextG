@@ -18,9 +18,3 @@ com.github.hmld.common.utils.EncryptUtil，来源：
 其余部分来自于 RuoYi-Vue 项目的源码学习
 RuoYi-Vue 项目地址：https://gitee.com/y_project/RuoYi-Vue
 ```
-### freemaker笔记
-```
-想要输出#{} 或者 ${} 格式的内容 需要如下写法：
-${r"#{"}${value}} 用来生成 #{value} 
-${r"${"}${value}} 用来生成 ${value} 
-```
