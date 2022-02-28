@@ -38,6 +38,13 @@ public class SysFuncController extends DefaultController{
 	@Autowired
 	private ISysFuncService sysFuncService;
 	
+	@Log(level = 0,detail = "menus()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
+	@PostMapping("/menu")
+	@ResponseBody
+	public AjaxResult menus(@RequestBody SysFunc sysFunc) {
+		List<SysFunc> list = sysFuncService.querySysFuncList(sysFunc);
+		return AjaxResult.success(list);
+	}
 	/**
 	 * 查询 系统功能
 	 * @param sysFunc
@@ -76,10 +83,12 @@ public class SysFuncController extends DefaultController{
 			sysFunc.setCreateBy(SecurityUtils.getUserPk());
 			sysFunc.setCreateTime(DateUtils.getNowTimestamp());
 			SysFunc.retryEnity(sysFunc);
-			return AjaxResult.success(sysFuncService.insertSysFunc(sysFunc));
+			return AjaxResult.success(0);
+//			return AjaxResult.success(sysFuncService.insertSysFunc(sysFunc));
 		} catch (EnityRequiredException e) {
 			e.printStackTrace();
-			return AjaxResult.error(e.getMessage());
+			AjaxResult es = AjaxResult.error(sysFunc.getFuncName());
+			return es;
 		}
 	}
 	

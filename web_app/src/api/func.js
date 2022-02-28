@@ -7,3 +7,19 @@ export function getListFunc(data) {
     data
   })
 }
+
+export function saveFunc(data) {
+  return request({
+    url: '/system/func',
+    method: 'post',
+    data
+  })
+}
+
+export function listMenu(data) {
+  return request({
+    url: '/system/func/menu',
+    method: 'post',
+    data
+  })
+}

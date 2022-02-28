@@ -1,0 +1,19 @@
+/*form 表单页脚按钮*/
+.form-footer{
+  margin-right: 100px;
+  float: right;
+}
+/*抽屉使用滚动条*/
+.el-drawer {
+  overflow: scroll;
+}
+/*隐藏抽屉滚动条*/
+.el-drawer__container ::-webkit-scrollbar{
+  display: none;
+}
+/*样式显示页面查询控件样式*/
+.top-right-btn {
+  margin-top: 5px;
+  position: relative;
+  float: right;
+}

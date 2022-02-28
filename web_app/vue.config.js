@@ -24,7 +24,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -35,7 +35,7 @@ module.exports = {
     open: true,
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:8082`,
+        target: `http://localhost:9082`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
@@ -48,6 +48,7 @@ module.exports = {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
+    devtool: 'source-map', // 默认是：cheap-module-eval-source-map
     resolve: {
       alias: {
         '@': resolve('src')
@@ -72,12 +73,12 @@ module.exports = {
     // set svg-sprite-loader
     config.module
       .rule('svg')
-      .exclude.add(resolve('src/icons'))
+      .exclude.add(resolve('src/assets/icons'))
       .end()
     config.module
       .rule('icons')
       .test(/\.svg$/)
-      .include.add(resolve('src/icons'))
+      .include.add(resolve('src/assets/icons'))
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')

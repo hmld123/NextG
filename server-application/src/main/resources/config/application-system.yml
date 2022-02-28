@@ -20,7 +20,7 @@ spring:
     
 server: 
   # 服务端口配置
-  port: 8082
+  port: 9082
   #servlet: 
     # 项目路径
     #context-path: /ng-api/

@@ -1,6 +1,8 @@
 package com.github.hmld.system.func.domain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.github.hmld.common.exception.EnityRequiredException;
 import com.github.hmld.common.utils.StringUtils;
@@ -28,7 +30,11 @@ public class SysFunc {
 	private String funcExplanation;
 	/** 前端组件 */
 	private String component;
-	/** 功能类型 */
+	/** 功能类型 
+	 * m,menu 菜单类型
+	 * f,function 功能类型
+	 * c,control 按钮类型
+	 * */
 	private String funcType;
 	/** 图标 */
 	private String icon;
@@ -47,7 +53,17 @@ public class SysFunc {
 	private Timestamp createTime;
 	/** 创建人*/
 	private String createBy;
+	//子节点
+	private List<SysFuncTreeView> children = new ArrayList<SysFuncTreeView>();
 	
+	// 获取子节点
+	public List<SysFuncTreeView> getChildren() {
+		return children;
+	}
+	// 设置子节点
+	public void setChildren(List<SysFuncTreeView> children) {
+		this.children = children;
+	}
 	/**
 	 * 获取 功能主键
 	 * @return
