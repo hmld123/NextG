@@ -83,8 +83,7 @@ public class SysFuncController extends DefaultController{
 			sysFunc.setCreateBy(SecurityUtils.getUserPk());
 			sysFunc.setCreateTime(DateUtils.getNowTimestamp());
 			SysFunc.retryEnity(sysFunc);
-			return AjaxResult.success(0);
-//			return AjaxResult.success(sysFuncService.insertSysFunc(sysFunc));
+			return AjaxResult.success(sysFuncService.insertSysFunc(sysFunc));
 		} catch (EnityRequiredException e) {
 			e.printStackTrace();
 			AjaxResult es = AjaxResult.error(sysFunc.getFuncName());

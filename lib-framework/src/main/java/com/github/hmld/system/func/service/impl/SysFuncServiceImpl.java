@@ -2,6 +2,7 @@ package com.github.hmld.system.func.service.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class SysFuncServiceImpl implements ISysFuncService {
 	 * @return
 	 */
 	public int insertSysFunc(SysFunc sysFunc){
+		sysFunc.setFuncPk(UUID.randomUUID().toString());
 		return sysFuncMapper.insertSysFunc(sysFunc);
 	}
 	/**

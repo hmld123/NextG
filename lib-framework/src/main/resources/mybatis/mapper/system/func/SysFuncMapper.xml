@@ -56,7 +56,7 @@
 	<insert id="insertSysFunc">
 		insert into sys_func
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="funcPk !=null and funcPk !=''">"func_pk,</if>
+			<if test="funcPk !=null and funcPk !=''">func_pk,</if>
 			<if test="parentId !=null and parentId !=''">parent_id,</if>
 			<if test="funcName !=null and funcName !=''">func_name,</if>
 			<if test="funcUrl !=null and funcUrl !=''">func_url,</if>
@@ -76,7 +76,7 @@
 			<if test="isFrame !=null and isFrame !=''">is_frame,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="funcPk !=null and funcPk !=''">"#{funcPk},</if>
+			<if test="funcPk !=null and funcPk !=''">#{funcPk},</if>
 			<if test="parentId !=null and parentId !=''">#{parentId},</if>
 			<if test="funcName !=null and funcName !=''">#{funcName},</if>
 			<if test="funcUrl !=null and funcUrl !=''">#{funcUrl},</if>

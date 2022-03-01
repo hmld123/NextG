@@ -326,21 +326,21 @@ public class SysFunc {
 		if (StringUtils.isNull(sysFunc)) {
 			throw new EnityRequiredException("数据体不能为空");
 		}
-		if (StringUtils.isEmpty(sysFunc.getFuncPk())) {
-			throw new EnityRequiredException("数据主键不能为空");
-		}
+//		if (StringUtils.isEmpty(sysFunc.getFuncPk())) {
+//			throw new EnityRequiredException("数据主键不能为空");
+//		}
 		if (StringUtils.isEmpty(sysFunc.getFuncName())) {
 			throw new EnityRequiredException("数据功能名称不能为空");
 		}
-		if (StringUtils.isEmpty(sysFunc.getFuncUrl())) {
-			throw new EnityRequiredException("数据请求地址不能为空");
-		}
+//		if (StringUtils.isEmpty(sysFunc.getFuncUrl())) {
+//			throw new EnityRequiredException("数据请求地址不能为空");
+//		}
 		if(StringUtils.isEmpty(sysFunc.getFuncType())) {
 			throw new EnityRequiredException("数据功能类型不能为空");
 		}
-		if (StringUtils.isEmpty(sysFunc.getFunPerms())) {
-			throw new EnityRequiredException("数据功能权限编码不能为空");
-		}
+//		if (StringUtils.isEmpty(sysFunc.getFunPerms())) {
+//			throw new EnityRequiredException("数据功能权限编码不能为空");
+//		}
 		return;
 	}
 }
