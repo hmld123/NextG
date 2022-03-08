@@ -17,13 +17,10 @@
     <!--数据表体-->
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleDrawerOpen">新增</el-button>
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAddDrawerOpen">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single">修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple">删除</el-button>
+        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single" @click="handleEditDrawerOpen">修改</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini">导出</el-button>
@@ -33,7 +30,7 @@
 
     <!-- 表格 -->
     <el-table v-loading="loading" :data="logininforList" row-key="funcPk" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
+      <!-- <el-table-column type="selection" width="55" align="center" /> -->
       <el-table-column prop="funcName" align="center" label="功能名称" />
       <el-table-column prop="funPerms" align="center" label="功能权限编码" />
       <el-table-column prop="orderNum" align="center" label="排序" />
@@ -45,9 +42,9 @@
       <el-table-column prop="funcType" align="center" label="功能类型" />
       <el-table-column prop="component" align="center" label="前端组件" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template>
-          <el-button size="mini" type="text" icon="el-icon-edit">修改</el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete">删除</el-button>
+        <template slot-scope="scope">
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleEditDrawerOpen(scope.row)">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -212,7 +209,7 @@
 </template>
 
 <script>
-import { getListFunc, saveFunc, listMenu } from '@/api/func'
+import { getListFunc, saveFunc, updateFunc, listMenu, getFunc, delFunc } from '@/api/func'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import IconSelect from '@/components/IconSelect'
@@ -220,6 +217,7 @@ export default {
   components: { Treeselect, IconSelect },
   data() {
     return {
+      ids: [],
       // 显示搜索条件
       showsearch: true,
       // 显示表单
@@ -324,7 +322,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map((item) => item.infoId)
+      this.ids = selection.map((item) => item.funcPk)
       this.single = selection.length !== 1
       this.multiple = !selection.length
     },
@@ -388,27 +386,36 @@ export default {
       }
     },
     // 打开from表单
-    handleDrawerOpen(row) {
-      const from = this.from
+    handleAddDrawerOpen(row) {
       this.getTreeselect()
-      if (from.funcPk == null) {
-        if (row != null && row.parentId) {
-          this.$set(this.from, 'parentId', row.parentId)
-        } else {
-          this.$set(this.from, 'parentId', 0)
-        }
-        this.$set(this.from, 'funcType', 'm')
-        this.$set(this.from, 'isFrame', '1')
-        this.$set(this.from, 'visible', '0')
-        this.$set(this.from, 'status', '0')
-        this.$set(this.from, 'isCache', '0')
-        this.$set(this.from, 'orderNum', 0)
-        this.funcTypeChange()
-        this.drawerTitle = '新增功能'
+      if (row != null && row.parentId) {
+        this.$set(this.from, 'parentId', row.parentId)
       } else {
-        this.drawerTitle = '修改功能'
+        this.$set(this.from, 'parentId', 0)
       }
+      this.$set(this.from, 'icon', '')
+      this.$set(this.from, 'funcType', 'm')
+      this.$set(this.from, 'isFrame', '1')
+      this.$set(this.from, 'visible', '0')
+      this.$set(this.from, 'status', '0')
+      this.$set(this.from, 'isCache', '0')
+      this.$set(this.from, 'orderNum', 0)
+      this.funcTypeChange()
+      this.drawerTitle = '新增功能'
       this.drawerOpen = true
+    },
+    handleEditDrawerOpen(row) {
+      const funcPk = row.funcPk || this.ids
+      this.getTreeselect()
+      getFunc(funcPk).then(response => {
+        if (response.data.parentId == null || response.data.parentId === '') {
+          response.data.parentId = '0'
+        }
+        this.from = response.data
+        this.funcTypeChange()
+        this.drawerTitle = '修改功能'
+        this.drawerOpen = true
+      })
     },
     // 表单提交
     submitForm() {
@@ -419,16 +426,31 @@ export default {
         .then((_) => {
           this.loading = true
           this.timer = setTimeout(() => {
-            saveFunc(this.from)
-              .then((request) => {
-                console.log(request)
-                this.loading = false
-                this.cancel()
-              })
-              .catch((err) => {
-                this.loading = false
-                console.log(err.response)
-              })
+            if (this.from.funcPk == null || this.from.funcPk === undefined) {
+              saveFunc(this.from)
+                .then((request) => {
+                  console.log(request)
+                  this.loading = false
+                  this.cancel()
+                  this.getList()
+                })
+                .catch((err) => {
+                  this.loading = false
+                  console.log(err.response)
+                })
+            } else {
+              updateFunc(this.from)
+                .then((request) => {
+                  console.log(request)
+                  this.loading = false
+                  this.cancel()
+                  this.getList()
+                })
+                .catch((err) => {
+                  this.loading = false
+                  console.log(err.response)
+                })
+            }
             // 动画关闭需要一定的时间
             setTimeout(() => {}, 40)
           }, 2000)
@@ -440,6 +462,14 @@ export default {
       this.drawerOpen = false
       clearTimeout(this.timer)
       this.resetForm('from')
+    },
+    handleDelete(row) {
+      this.$confirm('是否确认删除名称为"' + row.funcPk + '"的数据项？').then(function() {
+        return delFunc(row.funcPk)
+      }).then(() => {
+        this.getList()
+        this.$confirm('删除成功')
+      }).catch(() => {})
     }
   }
 }

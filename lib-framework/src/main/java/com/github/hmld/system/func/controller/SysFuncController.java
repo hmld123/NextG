@@ -66,6 +66,7 @@ public class SysFuncController extends DefaultController{
 	 */
   @Log(level = 0,detail = "getSysFunc()",operationType = OperationType.SELECT,operationUnit = OperationUnit.DATABASE)
 	@GetMapping("/{funcPk}")
+	@ResponseBody
 	public AjaxResult getSysFunc(@PathVariable String funcPk) {
 		return AjaxResult.success(sysFuncService.querySysFuncByPK(funcPk));
 	}
@@ -111,8 +112,10 @@ public class SysFuncController extends DefaultController{
 	 * @return
 	 */
   @Log(level = 0,detail = "deleteSysFunc()",operationType = OperationType.DELETE,operationUnit = OperationUnit.DATABASE)
-	@DeleteMapping("/{funcPks}")
-	public AjaxResult deleteSysFunc(@RequestBody String[] funcPks) {
-		return AjaxResult.success(sysFuncService.deleteSysFuncByPks(DelFlgEmnu.DEL_TYPE, DateUtils.getNowTimestamp(), SecurityUtils.getUserPk(), funcPks));
+	@DeleteMapping("/{funcPk}")
+	@ResponseBody
+	public AjaxResult deleteSysFunc(@PathVariable String funcPk) {
+		String[] funcPks = new String[] { funcPk };
+		return AjaxResult.success(sysFuncService.deleteSysFuncByPks(DelFlgEmnu.DEL_TYPE, DateUtils.getNowTimestamp(), SecurityUtils.getUserPk(), funcPks ));
 	}
 }

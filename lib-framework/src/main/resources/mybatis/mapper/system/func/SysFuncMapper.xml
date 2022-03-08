@@ -32,7 +32,7 @@
 	<!-- 查询 系统功能 -->
 	<select id="querySysFuncList" parameterType="SysFunc" resultMap="sysFuncResult">
 		<include refid="baseVO"/>
-		<where>
+		where del_flag = '0'
 			<if test="funcPk != null and funcPk != ''">and func_pk = #{funcPk}</if>
 			<if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
 			<if test="funcName != null and funcName != ''">and func_name = #{funcName}</if>
@@ -40,12 +40,10 @@
 			<if test="funPerms != null and funPerms != ''">and fun_perms = #{funPerms}</if>
 			<if test="visible != null and visible != ''">and visible = #{visible}</if>
 			<if test="status != null and status != ''">and status = #{status}</if>
-			<if test="delFlag != null and delFlag != ''">and del_flag = #{delFlag}</if>
 			<if test="updateTime != null ">and update_time = #{updateTime}</if>
 			<if test="updateBy != null and updateBy != ''">and update_by = #{updateBy}</if>
 			<if test="createTime != null ">and create_time = #{createTime}</if>
 			<if test="createBy != null and createBy != ''">and create_by = #{createBy}</if>
-		</where>
 	</select>
 	<!-- 查询 系统功能 -->
 	<select id="querySysFuncByPK" parameterType="String" resultMap="sysFuncResult">
@@ -101,14 +99,13 @@
 		update sys_func
 		<set>
 			<if test="parentId !=null and parentId !=''">parent_id = #{parentId},</if>
-			<if test="funcName !=null and funcName !=''">func_name = #{parentId},</if>
+			<if test="funcName !=null and funcName !=''">func_name = #{funcName},</if>
 			<if test="funcUrl !=null and funcUrl !=''">func_url = #{funcUrl},</if>
 			<if test="funPerms !=null and funPerms !=''">fun_perms = #{funPerms},</if>
 			<if test="visible !=null and visible !=''">visible = #{visible},</if>
 			<if test="orderNum !=null">order_num = #{orderNum},</if>
-			<if test="funcExplanation !=null and funcExplanation !=''">func_explanation = #{orderNum},</if>
+			<if test="funcExplanation !=null and funcExplanation !=''">func_explanation = #{funcExplanation},</if>
 			<if test="status !=null and status !=''">status = #{status},</if>
-			<if test="delFlag !=null and delFlag !=''">del_flag = #{delFlag},</if>
 			<if test="updateTime !=null">update_time = #{updateTime},</if>
 			<if test="updateBy !=null and updateBy !=''">update_by = #{updateBy},</if>
 			<if test="component !=null and component !=''">component = #{component},</if>
