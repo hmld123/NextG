@@ -29,8 +29,7 @@
     </el-row>
 
     <!-- 表格 -->
-    <el-table v-loading="loading" :data="logininforList" row-key="funcPk" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" @selection-change="handleSelectionChange">
-      <!-- <el-table-column type="selection" width="55" align="center" /> -->
+    <el-table v-loading="loading" :data="funcList" row-key="funcPk" :normalizer="normalizer" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" size="mini" @selection-change="handleSelectionChange">
       <el-table-column prop="funcName" align="center" label="功能名称" />
       <el-table-column prop="funPerms" align="center" label="功能权限编码" />
       <el-table-column prop="orderNum" align="center" label="排序" />
@@ -231,7 +230,7 @@ export default {
       // 总条数
       total: 0,
       // 系统访问记录表格数据
-      logininforList: [],
+      funcList: [],
       // 添加修改页面title
       drawerTitle: null,
       // 父节点
@@ -293,9 +292,9 @@ export default {
     // 获取列表
     getList() {
       this.loading = true
-      getListFunc(this.queryParams).then((result) => {
-        this.logininforList = result.rows
-        this.total = result.total
+      getListFunc(this.queryParams).then((response) => {
+        this.funcList = this.handleTree(response.rows, 'funcPk')
+        this.total = response.total
         this.loading = false
       })
     },

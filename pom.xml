@@ -42,6 +42,8 @@
 		<jaxb-core.version>3.0.2</jaxb-core.version>
 		<!-- activation 版本 -->
 		<activation.version>1.1.1</activation.version>
+		<!-- jackson 版本 -->
+		<jackson.version>2.13.2</jackson.version>
 	</properties>
 
 	<!-- 模块设置 -->
