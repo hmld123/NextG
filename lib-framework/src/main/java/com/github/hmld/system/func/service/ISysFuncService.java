@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.github.hmld.system.func.domain.SysFunc;
+import com.github.hmld.system.func.domain.vo.RouterVo;
 /**
  * 系统功能
  * @author hmld
@@ -47,5 +48,11 @@ public interface ISysFuncService {
 	 * @return
 	 */
 	public int deleteSysFuncByPks(String delFlag, Timestamp updateTime, String updateBy, String[] funcPks);
+	/**
+	 * 获取前端 Router
+	 * @param userPk
+	 * @return
+	 */
+	public List<RouterVo> selectRoutersByUserPK(String userPk);
 
 }

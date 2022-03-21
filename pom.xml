@@ -13,7 +13,7 @@
 		<!-- 项目版本 -->
 		<project.version>0.0.1</project.version>
 		<!-- java版本 -->
-		<java.version>11.0.2</java.version>
+		<java.version>17</java.version>
 		<!-- 编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- spring版本 -->
@@ -61,7 +61,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.10.1</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>

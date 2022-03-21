@@ -53,6 +53,10 @@ public class SysFunc {
 	private Timestamp createTime;
 	/** 创建人*/
 	private String createBy;
+	/** 是否缓存*/
+	private String isCache;
+	/** 路由参数*/
+	private String query;
 	//子节点
 	private List<SysFuncTreeView> children = new ArrayList<SysFuncTreeView>();
 	
@@ -316,6 +320,35 @@ public class SysFunc {
 	 */
 	public void setIsFrame(String isFrame) {
 		this.isFrame = isFrame;
+	}
+	
+	/**
+	 * 获取 缓存状态
+	 * @return
+	 */
+	public String getIsCache() {
+		return isCache;
+	}
+	/**
+	 * 设置缓存状态
+	 * @param isCache
+	 */
+	public void setIsCache(String isCache) {
+		this.isCache = isCache;
+	}
+	/**
+	 * 获取路由参数
+	 * @return
+	 */
+	public String getQuery() {
+		return query;
+	}
+	/**
+	 * 设置路由参数
+	 * @param query
+	 */
+	public void setQuery(String query) {
+		this.query = query;
 	}
 	/**
 	 * 必填项校验

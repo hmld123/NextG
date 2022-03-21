@@ -52,5 +52,11 @@ public interface SysFuncMapper {
 	public int deleteSysFuncByPks(@Param("delFlag") String delFlag,
 			@Param("updateTime") Timestamp updateTime,
 			@Param("updateBy") String updateBy,@Param("funcPks") String[] funcPks);
-
+	/**
+	 * 通过 userPK 查询 系统功能
+	 * @param sysFunc
+	 * @return
+	 */
+	public List<SysFunc> querySysFuncByUserPk(String userPk);
+	
 }

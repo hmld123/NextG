@@ -21,11 +21,13 @@
 		<result property="funcType" column="func_type"/>
 		<result property="icon" column="icon"/>
 		<result property="isFrame" column="is_frame"/>
+		<result property="isCache" column="is_cache"/>
+		<result property="query" column="query"/>
 	</resultMap>
 	
 	<sql id="baseVO">
 		select func_pk, parent_id, func_name, func_url, fun_perms, visible, order_num, func_explanation, 
-		component, func_type, icon, is_frame,
+		component, func_type, icon, is_frame,is_cache,query,
 		status, del_flag, update_time, update_by, create_time, create_by from sys_func 
 	</sql>
 	
@@ -72,6 +74,8 @@
 			<if test="funcType !=null and funcType !=''">func_type,</if>
 			<if test="icon !=null and icon !=''">icon,</if>
 			<if test="isFrame !=null and isFrame !=''">is_frame,</if>
+			<if test="isCache !=null and isCache !=''">is_cache,</if>
+			<if test="query !=null and query !=''">query,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="funcPk !=null and funcPk !=''">#{funcPk},</if>
@@ -92,6 +96,8 @@
 			<if test="funcType !=null and funcType !=''">#{funcType},</if>
 			<if test="icon !=null and icon !=''">#{icon},</if>
 			<if test="isFrame !=null and isFrame !=''">#{isFrame},</if>
+			<if test="isCache !=null and isCache !=''">#{isCache},</if>
+			<if test="query !=null and query !=''">#{query},</if>
 		</trim>
 	</insert>
 	<!-- 修改 系统功能 -->
@@ -112,6 +118,8 @@
 			<if test="funcType !=null and funcType !=''">func_type = #{funcType},</if>
 			<if test="icon !=null and icon !=''">icon = #{icon},</if>
 			<if test="isFrame !=null and isFrame !=''">is_frame = #{isFrame},</if>
+			<if test="isCache !=null and isCache !=''">is_cache = #{isCache},</if>
+			<if test="query !=null and query !=''">query = #{query},</if>
 		</set>
 		where func_pk = #{funcPk}
 	</update>
@@ -138,4 +146,16 @@
 		</set>
 		where func_pk in #{funcPk}
 	</delete>
+	<!-- 查询 系统功能 -->
+	<select id="querySysFuncByUserPk" parameterType="String" resultMap="sysFuncResult">
+		select sf.func_pk, sf.parent_id, sf.func_name, sf.func_url, 
+			sf.fun_perms, sf.visible, sf.order_num, sf.func_explanation, 
+			sf.component, sf.func_type, sf.icon, sf.is_frame,
+			sf.is_cache,sf.query,
+			sf.status, sf.del_flag, sf.update_time, sf.update_by, 
+			sf.create_time, sf.create_by 
+		from sys_func sf 
+		inner join sys_user_perms perm on perm.func_pk = sf.func_pk 
+		where sf.del_flag = '0' and sf.status = '0' and perm.user_pk = #{userPk}
+	</select>
 </mapper>

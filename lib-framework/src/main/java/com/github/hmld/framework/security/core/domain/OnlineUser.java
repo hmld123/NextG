@@ -6,13 +6,37 @@ import com.github.hmld.framework.security.core.util.PassWordCoders;
 import com.github.hmld.system.user.domain.SysUser;
 
 public class OnlineUser {
+	/**
+	 * 权限
+	 */
 	private Set<String> perms;
+	/**
+	 * 角色
+	 */
 	private Set<String> roles;
+	/**
+	 * 介绍
+	 */
 	private String introduction;
+	/**
+	 * 主键
+	 */
 	private String userPk;
+	/**
+	 * 头像
+	 */
 	private String avatar;
+	/**
+	 * 用户名
+	 */
 	private String userName;
+	/**
+	 * 用户昵称
+	 */
 	private String name;
+	/**
+	 * 密码
+	 */
 	private String password;
 	public Set<String> getPerms() {
 		return perms;

@@ -17,6 +17,8 @@ import com.github.hmld.framework.security.core.domain.LoginUser;
 import com.github.hmld.framework.security.core.domain.OnlineUser;
 import com.github.hmld.framework.security.impls.SysLoginService;
 import com.github.hmld.framework.security.impls.TokenService;
+import com.github.hmld.framework.security.util.SecurityUtils;
+import com.github.hmld.system.func.service.ISysFuncService;
 import com.github.hmld.system.user.domain.SysUserModel;
 import com.github.hmld.system.user.service.ISysUserService;
 
@@ -28,6 +30,8 @@ public class SysLoginController extends DefaultController{
 	private SysLoginService loginService;
 	@Autowired
 	private TokenService tokenService;
+	@Autowired
+	private ISysFuncService funcService;
 	/**
 	 * 登录
 	 * @param loginBody 登录信息
@@ -57,6 +61,12 @@ public class SysLoginController extends DefaultController{
 		ajax.put(AjaxResult.MSG_TAG, "成功");
 		ajax.put(AjaxResult.DATA_TAG, user);
 		return ajax;
+	}
+	
+	@GetMapping("getRouters")
+	@ResponseBody
+	public AjaxResult getRouters() {
+		return AjaxResult.success(funcService.selectRoutersByUserPK(SecurityUtils.getUserPk()));
 	}
 	
 }
